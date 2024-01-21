@@ -1,0 +1,82 @@
+﻿@model IEnumerable<TauseelRestaurant.Models.Shop_T>
+<div class="container-fluid">
+    <div class="page-content">
+        <div class="row" style="min-height:850px;">
+            <div class="col-md-8">
+                <section id="main-content">
+                    <section class="panel">
+                        <header class="panel-heading clearfix">
+                            <script>
+                                $(document).ready(function () {
+                                    $(".editrow").hide();
+
+                                });
+                                function openrow(row) {
+                                    $("#edit-" + row).show(2000);
+
+                                }
+                            </script>
+
+                            <div id="addform" style="width:100%;">
+
+                                @using (Html.BeginForm("Create", "Shop"))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    @Html.ValidationSummary(true)
+
+                                    <div class="col-md-8">
+                                        <input type="text" name="ShopName" class="form-control cke_required" required placeholder="Shop Name" />
+                                        <input type="hidden" name="minorder" value="0" />
+                                        <input type="hidden" name="deliverycharge" value="0" />
+                                        <input type="hidden" name="discount" value="0" />
+
+
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="submit" name="submit" class="btn btn-success" value="Create Shop" />
+                                    </div>
+
+                                }
+                            </div>
+                        </header>
+                        <table class="table table-striped table-advance table-hover">
+                            <thead>
+                                <tr>
+                                    
+                                    <th><i class="fa fa-sort"></i> Pic</th>
+                                    <th><i class="fa fa-sort"></i> Restaurant</th>
+                                    <th>Modify</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in ViewBag.Shops)
+                                {
+                                    <tr>
+                                        
+                                        <td style="vertical-align:middle">
+                                            <img style="height:60px;" src="@Url.Content("~/shoplogos/" + item.ShopID + "-" + item.Logo)">
+                                        </td>
+                                         
+
+                                        <td style="vertical-align:middle">
+                                            @item.ShopName - @item.Address
+                                        </td>
+                                        <td style="vertical-align:middle">
+                                            @*<a title="Delete" href="@Url.Content("~/Shop/Delete/")@item.ShopID" class="btn btn-danger"><i class="fa fa-trash-o"></i></a>
+                                            &nbsp;&nbsp;*@
+                                            <a title="View Details" href="@Url.Content("~/Shop/Details/")@item.ShopID" class="btn btn-warning"><i class="fa fa-file-text-o"></i> Select / Modify</a>
+                                        </td>
+                                    </tr>
+
+
+                                }
+                            </tbody>
+                        </table>
+                    </section>
+
+                </section>
+            </div>
+
+        </div>
+    </div>
+</div>

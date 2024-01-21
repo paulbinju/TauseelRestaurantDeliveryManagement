@@ -1,0 +1,113 @@
+﻿@model TauseelRestaurant.Models.Customer_T
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Customer_T</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.CustomerID)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CustomerID)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Name)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Name)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Email)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Email)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Password)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Password)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Mobile)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Mobile)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Phone)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Phone)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.FlatVilla)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.FlatVilla)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Building)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Building)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Road)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Road)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Block)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Block)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Location)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Location)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.DOC)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.DOC)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Source)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Source)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.CustomerNo)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CustomerNo)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id=Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

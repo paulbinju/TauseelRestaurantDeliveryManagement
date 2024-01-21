@@ -1,0 +1,343 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TauseelEatModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+  <EntityType Name="Menu_T">
+    <Key>
+      <PropertyRef Name="MenuID" />
+    </Key>
+    <Property Name="MenuID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MenuTypeID" Type="Int32" />
+    <Property Name="ShopID" Type="Int32" />
+    <Property Name="SequenceNo" Type="Int32" />
+    <Property Name="Menu" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PriceUponSelection" Type="Boolean" />
+    <Property Name="Rate" Type="Double" />
+    <Property Name="Discount" Type="Decimal" Precision="18" Scale="3" />
+    <Property Name="Offer" Type="Boolean" />
+    <NavigationProperty Name="MenuType_T" Relationship="Self.FK_Menu_T_MenuType_T" FromRole="Menu_T" ToRole="MenuType_T" />
+    <NavigationProperty Name="Shop_T" Relationship="Self.FK_Menu_T_Shop_T" FromRole="Menu_T" ToRole="Shop_T" />
+  </EntityType>
+  <EntityType Name="Menu_MenuSubItemGroup_T">
+    <Key>
+      <PropertyRef Name="Menu_SubItemGroupID" />
+    </Key>
+    <Property Name="Menu_SubItemGroupID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MenuID" Type="Int32" />
+    <Property Name="MenuSubitemGroupID" Type="Int32" />
+  </EntityType>
+  <EntityType Name="MenuSubItem_T">
+    <Key>
+      <PropertyRef Name="MenuSubItemID" />
+    </Key>
+    <Property Name="MenuSubItemID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MenuSubItemGroupID" Type="Int32" />
+    <Property Name="MenuSubItem" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="MultipleSelectable" Type="Boolean" />
+    <Property Name="Paid" Type="Boolean" />
+    <Property Name="Amount" Type="Decimal" Precision="19" Scale="4" />
+  </EntityType>
+  <EntityType Name="MenuSubItemGroup_T">
+    <Key>
+      <PropertyRef Name="MenuSubItemGroupID" />
+    </Key>
+    <Property Name="MenuSubItemGroupID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ShopID" Type="Int32" />
+    <Property Name="MenuSubItemGroup" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="MenuType_T">
+    <Key>
+      <PropertyRef Name="MenuTypeID" />
+    </Key>
+    <Property Name="MenuTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ShopID" Type="Int32" />
+    <Property Name="MenuType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Menu_T" Relationship="Self.FK_Menu_T_MenuType_T" FromRole="MenuType_T" ToRole="Menu_T" />
+  </EntityType>
+  <EntityType Name="Order_T">
+    <Key>
+      <PropertyRef Name="OrderID" />
+    </Key>
+    <Property Name="OrderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="OrderDate" Type="DateTime" Precision="0" />
+    <Property Name="StoreID" Type="Int32" />
+    <Property Name="CustomerID" Type="Int32" />
+    <Property Name="DeliveryAdvice" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CurrentStatusID" Type="Int32" />
+    <Property Name="GrossAmount" Type="Decimal" Precision="6" Scale="3" />
+    <Property Name="DeliveryCharge" Type="Decimal" Precision="6" Scale="3" />
+    <NavigationProperty Name="Status_T" Relationship="Self.FK_Order_T_Status_T" FromRole="Order_T" ToRole="Status_T" />
+    <NavigationProperty Name="Status_T1" Relationship="Self.FK_Order_T_Status_T1" FromRole="Order_T" ToRole="Status_T" />
+    <NavigationProperty Name="OrderDetail_T" Relationship="Self.FK_OrderDetail_T_Order_T" FromRole="Order_T" ToRole="OrderDetail_T" />
+  </EntityType>
+  <EntityType Name="OrderDetail_T">
+    <Key>
+      <PropertyRef Name="OrderDetailID" />
+    </Key>
+    <Property Name="OrderDetailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="OrderID" Type="Int32" />
+    <Property Name="Menu" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Position" Type="Int32" />
+    <Property Name="Amount" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="Quantity" Type="Int32" />
+    <NavigationProperty Name="Order_T" Relationship="Self.FK_OrderDetail_T_Order_T" FromRole="OrderDetail_T" ToRole="Order_T" />
+  </EntityType>
+  <EntityType Name="Rating_T">
+    <Key>
+      <PropertyRef Name="RatingID" />
+    </Key>
+    <Property Name="RatingID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CustomerID" Type="Int32" />
+    <Property Name="Rating" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="Feedback" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="DOC" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="ResCustomer_T" Relationship="Self.FK_Rating_T_Customer_T" FromRole="Rating_T" ToRole="ResCustomer_T" />
+  </EntityType>
+  <EntityType Name="ResCustomer_T">
+    <Key>
+      <PropertyRef Name="CustomerID" />
+    </Key>
+    <Property Name="CustomerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Password" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="Mobile" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+    <Property Name="Phone" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+    <Property Name="FlatVilla" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Building" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Road" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Block" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Location" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="DOC" Type="DateTime" Precision="0" />
+    <Property Name="Landmark" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="MainCustomerID" Type="Int32" />
+    <NavigationProperty Name="Rating_T" Relationship="Self.FK_Rating_T_Customer_T" FromRole="ResCustomer_T" ToRole="Rating_T" />
+  </EntityType>
+  <EntityType Name="Shop_T">
+    <Key>
+      <PropertyRef Name="ShopID" />
+    </Key>
+    <Property Name="ShopID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ShopName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Logo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="HeaderPic" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Userid" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="MinOrder" Type="Decimal" Precision="18" Scale="3" />
+    <Property Name="Active" Type="Boolean" />
+    <Property Name="DeliveryCharge" Type="Decimal" Precision="18" Scale="3" />
+    <Property Name="CurrentStatus" Type="Int32" />
+    <Property Name="Branch" Type="Boolean" />
+    <Property Name="MainShopID" Type="Int32" />
+    <Property Name="PhoneNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Lattitude" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Longitude" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="HasOffers" Type="Boolean" />
+    <Property Name="Discount" Type="Int32" />
+    <Property Name="DOC" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="Menu_T" Relationship="Self.FK_Menu_T_Shop_T" FromRole="Shop_T" ToRole="Menu_T" />
+  </EntityType>
+  <EntityType Name="ShopCuisine_T">
+    <Key>
+      <PropertyRef Name="ShopCuisine" />
+    </Key>
+    <Property Name="ShopCuisine" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ShopID" Type="Int32" />
+    <Property Name="CuisineID" Type="Int32" />
+  </EntityType>
+  <EntityType Name="ShopLocation_T">
+    <Key>
+      <PropertyRef Name="ShopLocationID" />
+    </Key>
+    <Property Name="ShopLocationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ShopID" Type="Int32" />
+    <Property Name="LocationID" Type="Int32" />
+    <Property Name="LocDeliveryCharge" Type="Decimal" Precision="18" Scale="3" />
+  </EntityType>
+  <EntityType Name="ShopTiming_T">
+    <Key>
+      <PropertyRef Name="ShopTimingID" />
+    </Key>
+    <Property Name="ShopTimingID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ShopID" Type="Int32" />
+    <Property Name="Day" Type="String" MaxLength="3" FixedLength="true" Unicode="true" />
+    <Property Name="StartTime" Type="Time" Precision="7" />
+    <Property Name="EndTime" Type="Time" Precision="7" />
+  </EntityType>
+  <EntityType Name="Status_T">
+    <Key>
+      <PropertyRef Name="StatusID" />
+    </Key>
+    <Property Name="StatusID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Order_T" Relationship="Self.FK_Order_T_Status_T" FromRole="Status_T" ToRole="Order_T" />
+    <NavigationProperty Name="Order_T1" Relationship="Self.FK_Order_T_Status_T1" FromRole="Status_T" ToRole="Order_T" />
+  </EntityType>
+  <EntityType Name="Category_T">
+    <Key>
+      <PropertyRef Name="CategoryID" />
+    </Key>
+    <Property Name="CategoryID" Type="Int32" Nullable="false" />
+    <Property Name="Category" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Cuisine_T">
+    <Key>
+      <PropertyRef Name="CuisineID" />
+    </Key>
+    <Property Name="CuisineID" Type="Int32" Nullable="false" />
+    <Property Name="Cuisine" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="SlugCuisine" Type="String" MaxLength="2083" FixedLength="false" Unicode="true" />
+    <Property Name="MetaTitle" Type="String" MaxLength="160" FixedLength="false" Unicode="true" />
+    <Property Name="MetaDescription" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="MetaKeywords" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Location_T">
+    <Key>
+      <PropertyRef Name="LocationID" />
+    </Key>
+    <Property Name="LocationID" Type="Int32" Nullable="false" />
+    <Property Name="CountryID" Type="Int32" />
+    <Property Name="CityID" Type="Int32" />
+    <Property Name="Location" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Group_LocationID" Type="Int32" />
+  </EntityType>
+  <EntityType Name="database_firewall_rules">
+    <Key>
+      <PropertyRef Name="id" />
+      <PropertyRef Name="name" />
+      <PropertyRef Name="start_ip_address" />
+      <PropertyRef Name="end_ip_address" />
+      <PropertyRef Name="create_date" />
+      <PropertyRef Name="modify_date" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="start_ip_address" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="end_ip_address" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="create_date" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="modify_date" Type="DateTime" Nullable="false" Precision="3" />
+  </EntityType>
+  <Association Name="FK_Menu_T_MenuType_T">
+    <End Role="MenuType_T" Type="Self.MenuType_T" Multiplicity="0..1" />
+    <End Role="Menu_T" Type="Self.Menu_T" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MenuType_T">
+        <PropertyRef Name="MenuTypeID" />
+      </Principal>
+      <Dependent Role="Menu_T">
+        <PropertyRef Name="MenuTypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Menu_T_Shop_T">
+    <End Role="Shop_T" Type="Self.Shop_T" Multiplicity="0..1" />
+    <End Role="Menu_T" Type="Self.Menu_T" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Shop_T">
+        <PropertyRef Name="ShopID" />
+      </Principal>
+      <Dependent Role="Menu_T">
+        <PropertyRef Name="ShopID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Order_T_Status_T">
+    <End Role="Status_T" Type="Self.Status_T" Multiplicity="0..1" />
+    <End Role="Order_T" Type="Self.Order_T" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Status_T">
+        <PropertyRef Name="StatusID" />
+      </Principal>
+      <Dependent Role="Order_T">
+        <PropertyRef Name="CurrentStatusID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Order_T_Status_T1">
+    <End Role="Status_T" Type="Self.Status_T" Multiplicity="0..1" />
+    <End Role="Order_T" Type="Self.Order_T" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Status_T">
+        <PropertyRef Name="StatusID" />
+      </Principal>
+      <Dependent Role="Order_T">
+        <PropertyRef Name="CurrentStatusID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrderDetail_T_Order_T">
+    <End Role="Order_T" Type="Self.Order_T" Multiplicity="0..1" />
+    <End Role="OrderDetail_T" Type="Self.OrderDetail_T" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Order_T">
+        <PropertyRef Name="OrderID" />
+      </Principal>
+      <Dependent Role="OrderDetail_T">
+        <PropertyRef Name="OrderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Rating_T_Customer_T">
+    <End Role="ResCustomer_T" Type="Self.ResCustomer_T" Multiplicity="0..1" />
+    <End Role="Rating_T" Type="Self.Rating_T" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ResCustomer_T">
+        <PropertyRef Name="CustomerID" />
+      </Principal>
+      <Dependent Role="Rating_T">
+        <PropertyRef Name="CustomerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="TauseelEatEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Menu_T" EntityType="Self.Menu_T" />
+    <EntitySet Name="Menu_MenuSubItemGroup_T" EntityType="Self.Menu_MenuSubItemGroup_T" />
+    <EntitySet Name="MenuSubItem_T" EntityType="Self.MenuSubItem_T" />
+    <EntitySet Name="MenuSubItemGroup_T" EntityType="Self.MenuSubItemGroup_T" />
+    <EntitySet Name="MenuType_T" EntityType="Self.MenuType_T" />
+    <EntitySet Name="Order_T" EntityType="Self.Order_T" />
+    <EntitySet Name="OrderDetail_T" EntityType="Self.OrderDetail_T" />
+    <EntitySet Name="Rating_T" EntityType="Self.Rating_T" />
+    <EntitySet Name="ResCustomer_T" EntityType="Self.ResCustomer_T" />
+    <EntitySet Name="Shop_T" EntityType="Self.Shop_T" />
+    <EntitySet Name="ShopCuisine_T" EntityType="Self.ShopCuisine_T" />
+    <EntitySet Name="ShopLocation_T" EntityType="Self.ShopLocation_T" />
+    <EntitySet Name="ShopTiming_T" EntityType="Self.ShopTiming_T" />
+    <EntitySet Name="Status_T" EntityType="Self.Status_T" />
+    <EntitySet Name="Category_T" EntityType="Self.Category_T" />
+    <EntitySet Name="Cuisine_T" EntityType="Self.Cuisine_T" />
+    <EntitySet Name="Location_T" EntityType="Self.Location_T" />
+    <EntitySet Name="database_firewall_rules" EntityType="Self.database_firewall_rules" />
+    <AssociationSet Name="FK_Menu_T_MenuType_T" Association="Self.FK_Menu_T_MenuType_T">
+      <End Role="MenuType_T" EntitySet="MenuType_T" />
+      <End Role="Menu_T" EntitySet="Menu_T" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Menu_T_Shop_T" Association="Self.FK_Menu_T_Shop_T">
+      <End Role="Shop_T" EntitySet="Shop_T" />
+      <End Role="Menu_T" EntitySet="Menu_T" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order_T_Status_T" Association="Self.FK_Order_T_Status_T">
+      <End Role="Status_T" EntitySet="Status_T" />
+      <End Role="Order_T" EntitySet="Order_T" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order_T_Status_T1" Association="Self.FK_Order_T_Status_T1">
+      <End Role="Status_T" EntitySet="Status_T" />
+      <End Role="Order_T" EntitySet="Order_T" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrderDetail_T_Order_T" Association="Self.FK_OrderDetail_T_Order_T">
+      <End Role="Order_T" EntitySet="Order_T" />
+      <End Role="OrderDetail_T" EntitySet="OrderDetail_T" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Rating_T_Customer_T" Association="Self.FK_Rating_T_Customer_T">
+      <End Role="ResCustomer_T" EntitySet="ResCustomer_T" />
+      <End Role="Rating_T" EntitySet="Rating_T" />
+    </AssociationSet>
+    <FunctionImport Name="delCustomer">
+      <Parameter Name="customerid" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="delShop">
+      <Parameter Name="shopid" Mode="In" Type="Int32" />
+    </FunctionImport>
+  </EntityContainer>
+</Schema>

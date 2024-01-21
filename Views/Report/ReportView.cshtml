@@ -1,0 +1,137 @@
+﻿@{
+    ViewBag.Title = "Report View";
+}
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/js/jquery-1.8.3.min.js"></script>
+<div class="container-fluid">
+    <div class="page-content">
+        <div class="row" style="min-height:850px;">
+
+            @using (Html.BeginForm("ReportView", "Report"))
+            {
+                <div class="col-md-12">
+                    <div class="col-md-1">Restaurant</div>
+                    <div class="col-md-2">
+                        <select class="form-control" name="ShopID">
+                            @foreach (var res in ViewBag.Restaurants)
+                            {
+                                <option value="@res.ShopID">@res.ShopName</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col-md-1">Dates from</div>
+
+                    <div class="col-md-4">
+                        <div class="input-group input-large date-picker input-daterange" data-date="10/11/2012" data-date-format="mm/dd/yyyy">
+                            <input type="date" class="form-control" name="from" required>
+                            <span class="input-group-addon"> to </span>
+                            <input type="date" class="form-control" name="to" required>
+                        </div>
+
+                    </div>
+                    <div class="col-md-2">
+                        <input type="submit" class="btn btn-danger" value="Submit" />
+                    </div>
+
+                </div>
+            }
+
+
+
+            <div class="col-md-12">
+                @{
+                    int curorderid = 0;
+                    int discount = Convert.ToInt32(ViewBag.Discount);
+                }
+          
+                
+                    <div class="col-md-1 pull-right">
+                        <div style="font-size: 36px;clear:both">
+                            <i class="fa fa-print  " onclick="printme()"></i>
+                        </div>
+                    </div>
+                    <br style="clear:both" />
+              
+                <div class="table-responsive" id="printThisTable">
+                    <style>
+                        tr {
+                            border-bottom: 1px solid #444;
+                        }
+
+                        td, th {
+                            border: 1px solid #ccc;
+                            padding: 4px 10px;
+                        }
+                    </style>
+                    <table style="border:1px solid #999;width:100%">
+                        <tr><td colspan="4"><img src='http://www.tauseel.com/tauseeleat/img/logo.png' width="150"><br><br></td></tr>
+                        <tr>
+                            <th>Order</th>
+                            <th>Customer</th>
+                            <th>Amount</th>
+                            <th>Sub Total</th>
+
+                        </tr>
+
+                        @{
+                            curorderid = 0;
+                            decimal granttotal = 0;
+                        }
+                        @foreach (var order in ViewBag.OrderDCS)
+                        {
+                            if (curorderid != order.OrderID)
+                            {
+
+                                <tr>
+                                    <td>Order No: <b>TEO @order.OrderID</b></td>
+                                    <td>Customer: <b>@order.Name</b></td>
+                                    <td>Gross Amount: <b>BD @order.OrderTotal</b></td>
+                                    <td rowspan="3">
+                                        @{
+                                        decimal grossamount = order.OrderTotal - (order.OrderTotal * order.Discount) / 100;
+                                        grossamount = grossamount + order.DeliveryCharge;
+                                        granttotal += grossamount;
+                                    }
+                                    <b>BD @grossamount.ToString("0.000")</b>
+                                </td>
+                            </tr>
+                                <tr><td>Date: <b>@order.OrderDate.ToString("dd-MM-yyyy")</b></td><td>Phone: <b>@order.Phone</b></td><td>Discount: <b>@order.Discount.ToString("0.0")% (-)</b></td></tr>
+                                <tr><td>Time: <b>@order.OrderDate.ToString("hh:mm:ss tt")</b></td><td>Status: <b>@order.Status</b></td><td>Delivery Charge:<b>BD @order.DeliveryCharge </b></td></tr>
+
+
+
+
+
+                                            }
+                                            curorderid = order.OrderID;
+                                        }
+                        <tr>
+                            <td colspan="3" style="text-align:right"><h4><b>Total</b></h4></td>
+                            <td><h4><b>BD @granttotal.ToString("0.000")</b></h4></td>
+                        </tr>
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<script>
+
+
+   function printme() {
+       var originalContents = $("body").html();
+       var printContents = $("#printThisTable").html();
+        $("body").html(printContents);
+        window.print();
+        $("body").html(originalContents);
+        return false;
+    } 
+    
+
+</script>

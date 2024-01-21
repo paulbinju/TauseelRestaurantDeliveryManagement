@@ -1,0 +1,258 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="TauseelEatModelStoreContainer" CdmEntityContainer="TauseelEatEntities">
+    <EntitySetMapping Name="Menu_T">
+      <EntityTypeMapping TypeName="TauseelEatModel.Menu_T">
+        <MappingFragment StoreEntitySet="Menu_T">
+          <ScalarProperty Name="MenuID" ColumnName="MenuID" />
+          <ScalarProperty Name="MenuTypeID" ColumnName="MenuTypeID" />
+          <ScalarProperty Name="ShopID" ColumnName="ShopID" />
+          <ScalarProperty Name="SequenceNo" ColumnName="SequenceNo" />
+          <ScalarProperty Name="Menu" ColumnName="Menu" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="PriceUponSelection" ColumnName="PriceUponSelection" />
+          <ScalarProperty Name="Rate" ColumnName="Rate" />
+          <ScalarProperty Name="Discount" ColumnName="Discount" />
+          <ScalarProperty Name="Offer" ColumnName="Offer" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Menu_MenuSubItemGroup_T">
+      <EntityTypeMapping TypeName="TauseelEatModel.Menu_MenuSubItemGroup_T">
+        <MappingFragment StoreEntitySet="Menu-MenuSubItemGroup_T">
+          <ScalarProperty Name="Menu_SubItemGroupID" ColumnName="Menu-SubItemGroupID" />
+          <ScalarProperty Name="MenuID" ColumnName="MenuID" />
+          <ScalarProperty Name="MenuSubitemGroupID" ColumnName="MenuSubitemGroupID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MenuSubItem_T">
+      <EntityTypeMapping TypeName="TauseelEatModel.MenuSubItem_T">
+        <MappingFragment StoreEntitySet="MenuSubItem_T">
+          <ScalarProperty Name="MenuSubItemID" ColumnName="MenuSubItemID" />
+          <ScalarProperty Name="MenuSubItemGroupID" ColumnName="MenuSubItemGroupID" />
+          <ScalarProperty Name="MenuSubItem" ColumnName="MenuSubItem" />
+          <ScalarProperty Name="MultipleSelectable" ColumnName="MultipleSelectable" />
+          <ScalarProperty Name="Paid" ColumnName="Paid" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MenuSubItemGroup_T">
+      <EntityTypeMapping TypeName="TauseelEatModel.MenuSubItemGroup_T">
+        <MappingFragment StoreEntitySet="MenuSubItemGroup_T">
+          <ScalarProperty Name="MenuSubItemGroupID" ColumnName="MenuSubItemGroupID" />
+          <ScalarProperty Name="ShopID" ColumnName="ShopID" />
+          <ScalarProperty Name="MenuSubItemGroup" ColumnName="MenuSubItemGroup" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MenuType_T">
+      <EntityTypeMapping TypeName="TauseelEatModel.MenuType_T">
+        <MappingFragment StoreEntitySet="MenuType_T">
+          <ScalarProperty Name="MenuTypeID" ColumnName="MenuTypeID" />
+          <ScalarProperty Name="ShopID" ColumnName="ShopID" />
+          <ScalarProperty Name="MenuType" ColumnName="MenuType" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Order_T">
+      <EntityTypeMapping TypeName="TauseelEatModel.Order_T">
+        <MappingFragment StoreEntitySet="Order_T">
+          <ScalarProperty Name="CustAddress" ColumnName="CustAddress" />
+          <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+          <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+          <ScalarProperty Name="StoreID" ColumnName="StoreID" />
+          <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+          <ScalarProperty Name="DeliveryAdvice" ColumnName="DeliveryAdvice" />
+          <ScalarProperty Name="CurrentStatusID" ColumnName="CurrentStatusID" />
+          <ScalarProperty Name="GrossAmount" ColumnName="GrossAmount" />
+          <ScalarProperty Name="DeliveryCharge" ColumnName="DeliveryCharge" />
+          <ScalarProperty Name="Discount" ColumnName="Discount" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OrderDetail_T">
+      <EntityTypeMapping TypeName="TauseelEatModel.OrderDetail_T">
+        <MappingFragment StoreEntitySet="OrderDetail_T">
+          <ScalarProperty Name="OrderDetailID" ColumnName="OrderDetailID" />
+          <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+          <ScalarProperty Name="Menu" ColumnName="Menu" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Position" ColumnName="Position" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Rating_T">
+      <EntityTypeMapping TypeName="TauseelEatModel.Rating_T">
+        <MappingFragment StoreEntitySet="Rating_T">
+          <ScalarProperty Name="RatingID" ColumnName="RatingID" />
+          <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+          <ScalarProperty Name="Rating" ColumnName="Rating" />
+          <ScalarProperty Name="Feedback" ColumnName="Feedback" />
+          <ScalarProperty Name="DOC" ColumnName="DOC" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ResCustomer_T">
+      <EntityTypeMapping TypeName="TauseelEatModel.ResCustomer_T">
+        <MappingFragment StoreEntitySet="ResCustomer_T">
+          <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="FlatVilla" ColumnName="FlatVilla" />
+          <ScalarProperty Name="Building" ColumnName="Building" />
+          <ScalarProperty Name="Road" ColumnName="Road" />
+          <ScalarProperty Name="Block" ColumnName="Block" />
+          <ScalarProperty Name="Location" ColumnName="Location" />
+          <ScalarProperty Name="DOC" ColumnName="DOC" />
+          <ScalarProperty Name="Landmark" ColumnName="Landmark" />
+          <ScalarProperty Name="MainCustomerID" ColumnName="MainCustomerID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Shop_T">
+      <EntityTypeMapping TypeName="TauseelEatModel.Shop_T">
+        <MappingFragment StoreEntitySet="Shop_T">
+          <ScalarProperty Name="resttype" ColumnName="resttype" />
+          <ScalarProperty Name="AcceptsCard" ColumnName="AcceptsCard" />
+          <ScalarProperty Name="AcceptsCash" ColumnName="AcceptsCash" />
+          <ScalarProperty Name="DeliveryTime" ColumnName="DeliveryTime" />
+          <ScalarProperty Name="ShopID" ColumnName="ShopID" />
+          <ScalarProperty Name="ShopName" ColumnName="ShopName" />
+          <ScalarProperty Name="Logo" ColumnName="Logo" />
+          <ScalarProperty Name="HeaderPic" ColumnName="HeaderPic" />
+          <ScalarProperty Name="Userid" ColumnName="Userid" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="MinOrder" ColumnName="MinOrder" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="DeliveryCharge" ColumnName="DeliveryCharge" />
+          <ScalarProperty Name="CurrentStatus" ColumnName="CurrentStatus" />
+          <ScalarProperty Name="Branch" ColumnName="Branch" />
+          <ScalarProperty Name="MainShopID" ColumnName="MainShopID" />
+          <ScalarProperty Name="PhoneNo" ColumnName="PhoneNo" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Lattitude" ColumnName="Lattitude" />
+          <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+          <ScalarProperty Name="HasOffers" ColumnName="HasOffers" />
+          <ScalarProperty Name="Discount" ColumnName="Discount" />
+          <ScalarProperty Name="DOC" ColumnName="DOC" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ShopCuisine_T">
+      <EntityTypeMapping TypeName="TauseelEatModel.ShopCuisine_T">
+        <MappingFragment StoreEntitySet="ShopCuisine_T">
+          <ScalarProperty Name="ShopCuisine" ColumnName="ShopCuisine" />
+          <ScalarProperty Name="ShopID" ColumnName="ShopID" />
+          <ScalarProperty Name="CuisineID" ColumnName="CuisineID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ShopLocation_T">
+      <EntityTypeMapping TypeName="TauseelEatModel.ShopLocation_T">
+        <MappingFragment StoreEntitySet="ShopLocation_T">
+          <ScalarProperty Name="LocMinOrder" ColumnName="LocMinOrder" />
+          <ScalarProperty Name="LocDeliveryTime" ColumnName="LocDeliveryTime" />
+          <ScalarProperty Name="ShopLocationID" ColumnName="ShopLocationID" />
+          <ScalarProperty Name="ShopID" ColumnName="ShopID" />
+          <ScalarProperty Name="LocationID" ColumnName="LocationID" />
+          <ScalarProperty Name="LocDeliveryCharge" ColumnName="LocDeliveryCharge" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ShopTiming_T">
+      <EntityTypeMapping TypeName="TauseelEatModel.ShopTiming_T">
+        <MappingFragment StoreEntitySet="ShopTiming_T">
+          <ScalarProperty Name="ShopTimingID" ColumnName="ShopTimingID" />
+          <ScalarProperty Name="ShopID" ColumnName="ShopID" />
+          <ScalarProperty Name="Day" ColumnName="Day" />
+          <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+          <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Status_T">
+      <EntityTypeMapping TypeName="TauseelEatModel.Status_T">
+        <MappingFragment StoreEntitySet="Status_T">
+          <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Category_T">
+      <EntityTypeMapping TypeName="TauseelEatModel.Category_T">
+        <MappingFragment StoreEntitySet="Category_T">
+          <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+          <ScalarProperty Name="Category" ColumnName="Category" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Cuisine_T">
+      <EntityTypeMapping TypeName="TauseelEatModel.Cuisine_T">
+        <MappingFragment StoreEntitySet="Cuisine_T">
+          <ScalarProperty Name="CuisineID" ColumnName="CuisineID" />
+          <ScalarProperty Name="Cuisine" ColumnName="Cuisine" />
+          <ScalarProperty Name="SlugCuisine" ColumnName="SlugCuisine" />
+          <ScalarProperty Name="MetaTitle" ColumnName="MetaTitle" />
+          <ScalarProperty Name="MetaDescription" ColumnName="MetaDescription" />
+          <ScalarProperty Name="MetaKeywords" ColumnName="MetaKeywords" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Location_T">
+      <EntityTypeMapping TypeName="TauseelEatModel.Location_T">
+        <MappingFragment StoreEntitySet="Location_T">
+          <ScalarProperty Name="LocationID" ColumnName="LocationID" />
+          <ScalarProperty Name="CountryID" ColumnName="CountryID" />
+          <ScalarProperty Name="CityID" ColumnName="CityID" />
+          <ScalarProperty Name="Location" ColumnName="Location" />
+          <ScalarProperty Name="Group_LocationID" ColumnName="Group_LocationID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ShopMapping_T">
+      <EntityTypeMapping TypeName="TauseelEatModel.ShopMapping_T">
+        <MappingFragment StoreEntitySet="ShopMapping_T">
+          <ScalarProperty Name="MainShopID" ColumnName="MainShopID" />
+          <ScalarProperty Name="ShopID" ColumnName="ShopID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DeliveryPersonLocation_T">
+      <EntityTypeMapping TypeName="TauseelEatModel.DeliveryPersonLocation_T">
+        <MappingFragment StoreEntitySet="DeliveryPersonLocation_T">
+          <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+          <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+          <ScalarProperty Name="DeviceID" ColumnName="DeviceID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Rider_T">
+      <EntityTypeMapping TypeName="TauseelEatModel.Rider_T">
+        <MappingFragment StoreEntitySet="Rider_T">
+          <ScalarProperty Name="RUserDeviceRegId" ColumnName="RUserDeviceRegId" />
+          <ScalarProperty Name="RLastSync" ColumnName="RLastSync" />
+          <ScalarProperty Name="RRegistrationDate" ColumnName="RRegistrationDate" />
+          <ScalarProperty Name="RDrivingLicenseNo" ColumnName="RDrivingLicenseNo" />
+          <ScalarProperty Name="RVehicleRegistrationNo" ColumnName="RVehicleRegistrationNo" />
+          <ScalarProperty Name="RVehicleType" ColumnName="RVehicleType" />
+          <ScalarProperty Name="RIDProofNo" ColumnName="RIDProofNo" />
+          <ScalarProperty Name="RIDProofType" ColumnName="RIDProofType" />
+          <ScalarProperty Name="RAddress" ColumnName="RAddress" />
+          <ScalarProperty Name="RContactNo" ColumnName="RContactNo" />
+          <ScalarProperty Name="RMobileType" ColumnName="RMobileType" />
+          <ScalarProperty Name="REmailAddress" ColumnName="REmailAddress" />
+          <ScalarProperty Name="RLName" ColumnName="RLName" />
+          <ScalarProperty Name="RFName" ColumnName="RFName" />
+          <ScalarProperty Name="RID" ColumnName="RID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

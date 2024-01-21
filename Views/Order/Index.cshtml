@@ -1,0 +1,236 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<meta http-equiv="refresh" content="30">
+
+<script src="~/js/jquery-1.8.3.min.js"></script>
+<div class="container-fluid">
+    <div class="page-content">
+        <div class="row" style="min-height:850px;">
+            <div class="col-md-12">
+                @{
+                    int curorderid = 0;
+                    int discount = Convert.ToInt32(ViewBag.Discount);
+                }
+                <div class="row">
+                    <div class="col-md-4">
+                        <div style="font-size: 36px">
+                            @{
+                                int count = 0;
+                                int curorderidx = 0;
+                            }
+                            @foreach (var order in ViewBag.OrderDCS)
+                            {
+                                if (curorderidx != order.OrderID)
+                                {
+
+                                    count++;
+
+                                }
+                                curorderidx = order.OrderID;
+                            }
+                            <span class="label label-success label-as-badge">Total Orders : @count</span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>OrderID</th>
+                                <th>Customer</th>
+                                <th>Date</th>
+                                <th>Restaurant</th>
+                                <th>Status</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                curorderid = 0;
+                            }
+                            @foreach (var order in ViewBag.OrderDCS)
+                            {
+                                if (curorderid != order.OrderID)
+                                {
+                                    <tr>
+                                        <td>TEO @order.OrderID</td>
+                                        <td>
+                                            @order.Name<br />
+                                            @order.Phone
+                                        </td>
+                                         
+                                        <td>@order.OrderDate.ToString("dd-MM-yyyy hh:mm:ss tt")</td>
+                                        <td>
+                                            @order.ShopName<br />
+                                            @order.ShopPhone
+                                        </td>
+                                        <td>@order.Status</td>
+                                        <td>
+                                            <div style="float:left;margin-right:2px;">
+                                                <button type="submit" data-toggle="modal" data-target="#myModal-@order.OrderID" class="btn btn-md btn-success" style="box-shadow: 0 3px 0 0 rgb(42, 130, 39);">
+                                                    <i class="fa fa-info-circle"></i>
+                                                    <span style="font-size: 103%;">Show Details</span>
+                                                </button>
+                                            </div>
+                                            <div style="float:left;margin-right:2px;">
+                                                @using (Html.BeginForm("OrderCancelled", "Order"))
+                                                { <input type="hidden" name="orderid" value="@order.OrderID" />
+                                                <button type="submit" class="btn btn-small  btn-danger" style="box-shadow: 0 3px 0 0 rgb(42, 130, 39);">
+                                                    <i class="fa fa-times"></i>
+                                                    <span style="font-size: 100%;">Cancel Order</span>
+                                                </button>
+                                                }
+                                            </div>
+                                            <div style="visibility:hidden">
+                                                <audio autoplay>
+                                                    <source src="@Url.Content("~/sound/rings.mp3")" type="audio/mpeg">
+                                                </audio>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                                curorderid = order.OrderID;
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                @foreach (var order in ViewBag.OrderDCS)
+                {
+                    <div class="modal fade" id="myModal-@order.OrderID" role="dialog">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Order Details</h4>
+                                    <br /><br />
+                                    <i class="fa fa-print pull-right" style="font-size:30px;" onclick='window.open("@Url.Content("~/OrderPrint/"+order.OrderID)", "_blank", "toolbar=no,scrollbars=no,resizable=yes,top=50,left=50,width=900,height=1000");'></i>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="container">
+
+                                        <div class="row">
+                                            <div class="col-md-3 col-md-offset-3">
+                                                <h3> Order Report</h3>
+                                            </div>
+                                        </div>
+                                        <div class="row col-md-9" style="background-color: #E8E8E8;padding:10px 0">
+                                            <div class="col-md-4">
+                                                <label class="control-label">Order ID: </label> <label style="font-weight: normal;" class="control-label">TEO-@order.OrderID</label><br />
+
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label class="control-label">Date: </label> <label style="font-weight: normal;" class="control-label">@order.OrderDate</label><br />
+
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label class="control-label">Status: </label> <label style="font-weight: normal;" class="control-label">@order.Status</label><br />
+
+                                            </div>
+                                        </div>
+                                        <br />
+                                        <br style="clear:both" />
+                                        <br />
+                                        <div class="row">
+                                            <div class="col-md-9">
+                                                <div class="table-responsive">
+                                                    <table class="table table-condensed">
+                                                        <thead style="background-color: #FF4C57; color: white;">
+                                                            <tr>
+                                                                <th>Item</th>
+
+                                                                <th>Quantity</th>
+                                                                <th>Amount</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @{
+                    decimal amt = 0;
+                    decimal total = 0;
+                    decimal grandtotal = 0;
+                    int custID = 0;
+                    decimal deliverycharge = 0;
+                    decimal afterdiscount = 0;
+                                                            }
+                                                            @foreach (var orderd in ViewBag.OrderDCS)
+                                                            {
+                                                                if (orderd.OrderID == order.OrderID)
+                                                                {
+                                                                    amt = orderd.Amount * orderd.Quantity;
+                                                                    total += amt;
+                                                                    custID = orderd.CustomerID;
+                                                                    deliverycharge = orderd.DeliveryCharge;
+
+                                                                    afterdiscount = total * discount / 100;
+
+                                                                    grandtotal = total - afterdiscount + deliverycharge;
+                                                                    <tr>
+                                                                        <td>@Html.Raw(orderd.Menu.Replace("-@", "</em>").Replace("@", " -<em style='font-size:11px;margin-left:10px;'> ").Replace("-$", "</em>").Replace("$", " -<em style='font-size:11px;margin-left:10px;'> "))</td>
+
+                                                                        <td>@orderd.Quantity</td>
+                                                                        <td>BD @Math.Round(orderd.Amount, 3) </td>
+                                                                    </tr>
+                                                                }
+                                                            }
+                                                            <tr style="padding-top:10px;border-top:2px solid #444">
+                                                                <td colspan="2" style="text-align:right;"><strong>Gross Amount</strong></td>
+                                                                <td>BD @Math.Round(total, 3)</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td colspan="2" style="text-align:right;margin-right:20px;"><strong>Discount (@discount %)</strong></td>
+                                                                <td>
+                                                                    BD @afterdiscount
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td colspan="2" style="text-align:right;margin-right:20px;"><strong>Delivery Charges</strong></td>
+                                                                <td>BD @deliverycharge</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td colspan="2" style="text-align:right;font-size:18px;color:red;height:50px;margin-right:20px;padding-top:10px;"><strong>Total Amount</strong></td>
+                                                                <td style="font-size:18px;color:red;height:50px;border-bottom:1px dashed #ccc;padding-top:10px;font-weight:bold">BD @Math.Round(grandtotal, 3)</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <h3>Special Requests</h3>
+                                                @order.DeliveryAdvice
+                                            </div>
+                                            <br style="clear:both" />
+                                            <br style="clear:both" />
+                                            <div class="col-md-9" style="background-color:#eeeeee">
+                                                <h3>Customer Address</h3>
+                                                <div class="col-md-4">
+                                                    <label class="control-label">Name: @order.Name</label><br />
+                                                    <label class="control-label">Email: @order.Email</label><br />
+                                                    <label class="control-label">Phone: @order.Phone</label><br />
+                                                    <label class="control-label">Flat No / Office No: @order.FlatVilla</label><br />
+                                                </div><div class="col-md-4">
+                                                    <label class="control-label">Building No: @order.Building</label><br />
+                                                    <label class="control-label">Road: @order.Road</label><br />
+                                                    <label class="control-label">Block: @order.Block</label><br />
+                                                    <label class="control-label">Location: @order.Location</label><br />
+                                                    <br style="clear:both" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+ 

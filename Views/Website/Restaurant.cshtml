@@ -1,0 +1,613 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Restaurant</title>
+    <link href="@Url.Content("~/Content/bootstrap.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/chosen.css")" rel="stylesheet" />
+
+    <link href="@Url.Content("~/Content/Custom.css")" rel="stylesheet" />
+
+    <link href="@Url.Content("~/fonts/font-awesome.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/jquery.bxslider.css")" rel="stylesheet" />
+
+    <link href="@Url.Content("~/Content/footer-distributed-with-address-and-phones.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/styles.css")" rel="stylesheet" />
+    <style>
+        .product-title {
+            font-size: 150%;
+            font-weight: bold;
+            color: #444;
+        }
+
+        .restaurant-details {
+            font-size: 110%;
+            font-weight: bold;
+            color: #444;
+        }
+
+        /*.tab-content {
+            border-left: 1px solid #ddd;
+            border-right: 1px solid #ddd;
+            padding: 10px;
+        }
+
+        .nav-tabs {
+            margin-bottom: 0;
+        }*/
+
+
+        .sidebar-nav-fixed {
+            width: 20%;
+        }
+
+        #term-defs {
+            height: 300px;
+            overflow: scroll;
+        }
+
+        #top {
+            position: relative;
+            top: 150px;
+            left: 920px;
+            z-index: 999;
+            width: 20%;
+            /*height: 23px;*/
+        }
+    </style>
+
+
+</head>
+<body>
+
+
+    <nav class="navbar navbar-new navbar-fixed-top" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Order Food Online</a>
+
+
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <!--<ul class="nav navbar-nav">
+                    <li class="active"><a href="#">Home</a></li>
+                    <li><a href="#">Page 1</a></li>
+                    <li><a href="#">Page 2</a></li>
+                    <li><a href="#">Page 3</a></li>
+                </ul>-->
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="@Url.Content("~/")">Home</a></li>
+                    <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                    <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="gap-big"></div>
+    <div class="gap-big"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <ul class="breadcrumb">
+                    <li><a href="@Url.Content("~/")" class="btn btn-default">Home</a></li>
+                    <li class="btn btn-default">Select Restaurant</li>
+                    <li class="active btn btn-danger" style="background-color: rgba(226, 77, 77, 0.96);border-color: #ac2925;">Select Food</li>
+                    <li><a href="#" class="btn btn-default">Checkout</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="gap-big"></div>
+
+        <div class="gap"></div>
+
+    </div>
+
+
+
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2">
+
+
+@foreach (var shop in ViewBag.Shop)
+{
+                <a href="pulpitrock.jpg" class="thumbnail">
+
+                    <img src="@Url.Content("~/shoplogos/" + shop.ShopID + "-" + shop.HeaderPic)" alt="Image Alternative text" onerror="this.style.display='none';" title="@shop.ShopName">
+                </a>
+}
+            </div>
+
+            <div class="col-md-6">
+                @foreach (var shop in ViewBag.Shop)
+                {
+                    <div class="product-title">@shop.ShopName</div>
+                    <h5 class="restaurant-details">Minimum Order Amount: @shop.MinOrder</h5>
+                    <h5 class="restaurant-details">Timings: @shop.Timings</h5>
+                }
+                @{ int flag = 0;}
+                <h5 class="restaurant-details">
+                    Cuisines :
+                    @foreach (var cusi in ViewBag.Cuisines)
+                    {
+                        <span>
+                            @if (flag == 0)
+                            {
+                                @cusi.Cuisine
+                                flag = 1;
+                            }
+                            else {
+                                <span>,</span>
+                                @cusi.Cuisine
+                            }
+                        </span>
+                    }
+                </h5>
+
+            </div>
+
+            <!--<div class="col-md-10">
+
+
+
+            </div>-->
+
+        </div>
+
+
+    </div>
+
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-md-8">
+
+                <ul class="nav nav-tabs navbar-right">
+                    <li class="active"><a data-toggle="tab" href="#menu">Menu</a></li>
+                    <li><a data-toggle="tab" href="#reviews">Reviews</a></li>
+
+                </ul>
+                <div class="gap"></div>
+                <div class="tab-content">
+                    <div id="menu" class="tab-pane fade in active">
+                        <!--<div class="gap"></div>
+                        <div class="gap"></div>-->
+
+
+
+
+                        <div class="container">
+
+
+                            <div class="row">
+
+                                <div class="col-md-8">
+
+                                    <!-- Most Selling Section-->
+
+                                    <section id="mostselling">
+                                        @{ int curMenuTypeId = 0; }
+                                        @foreach (var menuitem in ViewBag.Menus)
+                                        {
+
+                                            if (menuitem.MenuTypeID != curMenuTypeId)
+                                            {
+                                                <br />
+                                                <h3 style="font-size: 130%;font-weight: bold;color: #E35353;margin-bottom: 30px;">
+                                                    @menuitem.MenuType
+                                                </h3>
+                                            }
+                                            curMenuTypeId = menuitem.MenuTypeID;
+
+                                            <div class="row" style="border-bottom:1px dashed #ccc;margin-bottom:10px">
+                                                <div class="col-md-1">
+                                                    <img class="img-rounded" style="width: 45px;" onerror="this.style.display='none';" src="http://restaurants.Tauseel.com/shoplogos/menupic-@menuitem.ShopID-@(menuitem.MenuID).jpg" />
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <h4>@menuitem.Menu</h4>
+                                                    <div style="font-size:11px;line-height:11px;margin-bottom:5px">@menuitem.Description</div>
+                                                </div>
+                                                
+                                                <div class="col-md-2">
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <strong>
+                                                        BD @menuitem.Rate
+                                                    </strong>
+                                                </div>
+                                                
+
+                                                @using (Html.BeginForm("Add2Cart", "Website"))
+                                                {
+                                                    <div class="container">
+                                                        <div class="row">
+                                                            <div class="col-md-1">
+                                                                <!--<i class="fa fa-star"></i>-->
+                                                                <a href="#" data-toggle="modal" data-target="#myModal-@menuitem.MenuID" class="btn btn-xs btn-default" style="border-radius: 35px 35px 35px 35px;background-color: #E35353;color: white;"><span class="glyphicon glyphicon-plus"></span></a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="container">
+                                                        <!-- Modal -->
+                                                        <div class="modal fade" id="myModal-@menuitem.MenuID" role="dialog">
+                                                            <div class="modal-dialog modal-lg">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                                                                        <h2>@menuitem.Menu</h2>
+                                                                        <p>@menuitem.Description</p>
+
+
+                                                                    </div>
+                                                                    <div class="modal-body">
+
+
+                                                                        <div class="container">
+                                                                            <div class="row">
+                                                                                <div class="col-md-8" style="margin-top:-20px;">
+                                                                                    @{ 
+                                                                                        var cugrp = "";
+                                                                                        string groupids = "";
+                                                                                        }
+
+
+                                                         
+
+
+                                                                                    @foreach (var sumenus in ViewBag.Submenus)
+                                                                                    {
+                                                                                        if (menuitem.MenuSubItemGroup.Contains(Convert.ToString(sumenus.MenuSubItemGroupID)))
+                                                                                        {
+                                                                                            if (cugrp != sumenus.MenuSubItemGroup)
+                                                                                            {
+
+                                                                                                <br />
+                                                                                                <br />
+                                                                                                <b>@sumenus.MenuSubItemGroup</b>
+                                                                                                <br />
+                                                                                            }
+                                                                                            if (sumenus.MultipleSelectable)
+                                                                                            {
+                                                                                                <span>&nbsp;&nbsp;</span><input type="checkbox" name="chkitems" value="@sumenus.MenuSubItem-@sumenus.Amount" /><span>&nbsp;&nbsp;@sumenus.MenuSubItem (@Math.Round(sumenus.Amount, 3))</span>
+                                                                                            }
+                                                                                            else
+                                                                                            {
+                                                                                                if (cugrp != sumenus.MenuSubItemGroup)
+                                                                                                {
+                                                                                                    groupids += sumenus.MenuSubItemGroupID + ",";
+                                                                                                }
+
+                                                                                                <span>&nbsp;&nbsp;</span><input type="radio" name="@sumenus.MenuSubItemGroupID" checked value="@sumenus.MenuSubItemGroup (@sumenus.MenuSubItem)" /><span>&nbsp;&nbsp;@sumenus.MenuSubItem</span>
+                                                                                            }
+                                                                                            cugrp = sumenus.MenuSubItemGroup;
+                                                                                        }
+                                                                                    }
+                                                                                    <input type="hidden" name="groupids" value="@groupids" />
+                                                                                </div>
+
+
+
+                                                                            </div>
+                                                     </div>
+
+
+                                                                    </div>
+                                                                    <div class="modal-footer">
+
+                                                                        <div class="col-md-2"><b style="font-size:16px;">Price: @menuitem.Rate</b></div>
+
+                                                                        <div class="col-md-1"><b>Quantity:</b></div>
+                                                                        <div class="col-md-2">
+                                                                            <div class="input-group">
+                                                                                <span class="input-group-btn">
+                                                                                    <button type="button" class="btn btn-xs btn-danger btn-number" data-type="minus" data-field="quant[@menuitem.MenuID]">
+                                                                                        <span class="glyphicon glyphicon-minus"></span>
+                                                                                    </button>
+                                                                                </span>
+                                                                                <input type="hidden" name="Menu" value="@menuitem.Menu" />
+                                                                                <input type="hidden" name="Description" value="@menuitem.Description" />
+                                                                                <input type="hidden" name="MenuID" value="@menuitem.MenuID" />
+                                                                                <input type="hidden" name="ShopID" value="@menuitem.ShopID" />
+                                                                                <input type="hidden" name="Rate" value="@menuitem.Rate" />
+
+                                                                                <input type="text" name="quant[@menuitem.MenuID]" class="form-control input-sm input-number" value="1" min="1" max="100" style="text-align: center;height: 22px;">
+                                                                                <span class="input-group-btn">
+                                                                                    <button type="button" class="btn btn-xs btn-success btn-number" data-type="plus" data-field="quant[@menuitem.MenuID]">
+                                                                                        <span class="glyphicon glyphicon-plus"></span>
+                                                                                    </button>
+                                                                                </span>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <input type="submit" class="btn btn-success" value="Add to Cart" />
+
+                                                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                 }
+                                            </div>
+                                                }
+                                    </section>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="reviews" class="tab-pane fade">
+                        <h3>Reviews</h3>
+                        <p>coming soon!</p>               
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-success follow-scroll" id="top" style="overflow:hidden">
+        <div class="panel-heading">Your Cart</div>
+        <div class="panel-body">
+
+
+            <div class="container">
+
+
+
+                <div class="row">
+
+
+
+                    @if (ViewBag.MenuCart != null)
+                    {
+                        double amt;
+                        double total = 0.0;
+
+                        <table style="font-size:11px;font-weight:bold">
+
+                            <tr style="border-bottom:1px solid #ccc"><th style="width:40px">Item</th><th style="width:20px">Rate</th><th style="width:20px">Qty</th><th style="width:20px">Amt(BD)</th></tr>
+
+
+                            @foreach (var cart in ViewBag.MenuCart)
+                            {
+                                amt = cart.Rate * cart.Qty;
+                                total += amt;
+                                <tr style="border-bottom:1px dashed #ccc"><td>@cart.Menu</td><td>@cart.Rate</td><td>@cart.Qty</td><td>@amt</td></tr>
+
+                            }
+     @{
+
+         double discount = Convert.ToDouble(ViewBag.Discount);
+         double disamt;
+         if (discount != 0)
+         {
+             disamt = total * discount / 100;
+             total = total - (total * discount / 100);
+            <tr style="border-top:1px solid #ccc;border-bottom:1px solid #000;height:40px;font-size:12px"><td>Discount (@discount %)</td><td></td><td></td><td>@disamt</td></tr>
+         }
+    }
+
+                            
+
+                            <tr style="border-top:1px solid #ccc;border-bottom:1px solid #000;height:40px;font-size:15px"><td>Total</td><td></td><td>BD</td><td>@total</td></tr>
+
+                        </table>
+                    }
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <a href="@Url.Content("~/Checkout/"+ ViewBag.ShopID)" class="btn btn-success" style="border-radius: 35px 35px 35px 35px;background-color: #E35353;padding: 2px 28px; margin: 20px 0 0 40px;                        ">Check Out</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="@Url.Content("~/Scripts/jquery-1.9.1.js")"></script>
+    <script src="@Url.Content("~/Scripts/bootstrap.js")"></script>
+    <script src="@Url.Content("~/Scripts/chosen.jquery.js")"></script>
+
+
+    <script type="text/javascript">
+        var config = {
+            '.chosen-select': {},
+            '.chosen-select-deselect': { allow_single_deselect: true },
+            '.chosen-select-no-single': { disable_search_threshold: 10 },
+            '.chosen-select-no-results': { no_results_text: 'Oops, nothing found!' },
+            '.chosen-select-width': { width: "95%" }
+        }
+        for (var selector in config) {
+            $(selector).chosen(config[selector]);
+        }
+
+
+
+
+
+        $(document).ready(function () {
+            $(window).scroll(function () {
+                if ($(this).scrollTop() > 60) {
+                    $('#back-to-top').fadeIn();
+                } else {
+                    $('#back-to-top').fadeOut();
+                }
+            });
+            // scroll body to 0px on click
+            $('#back-to-top').click(function () {
+                $('#back-to-top').tooltip('hide');
+                $('body,html').animate({
+                    scrollTop: 0
+                }, 800);
+                return false;
+            });
+
+            $('#back-to-top').tooltip('show');
+        });
+
+
+
+
+        // Follow Scroll
+
+
+        (function ($) {
+            var element = $('.follow-scroll'),
+                originalY = element.offset().top;
+            
+            //alert(originalY);
+
+            element.css('top', '200px');
+
+            // Space between element and top of screen (when scrolling)
+            var topMargin = 220;
+
+            // Should probably be set in CSS; but here just for emphasis
+            //element.css('position', 'relative');
+
+            $(window).on('scroll', function (event) {
+                var scrollTop = $(window).scrollTop();
+
+                //alert(scrollTop);
+
+                element.stop(false, false).animate({
+                    top: scrollTop > originalY
+                            ? 0
+                            : scrollTop - originalY + topMargin
+                }, 500);
+            });
+
+            $(window).load(function () {
+                var scrollTop = $(window).scrollTop();
+
+                //alert(scrollTop);
+
+                element.stop(false, false).animate({
+                    top: scrollTop > originalY
+                            ? 0
+                            : scrollTop - originalY + topMargin
+                }, 500);
+            });
+
+        })(jQuery);
+
+
+
+
+
+    </script>
+
+
+
+
+    <script>
+
+        $(document).ready(function () {
+
+
+
+            //plugin bootstrap minus and plus
+            //http://jsfiddle.net/laelitenetwork/puJ6G/
+            $('.btn-number').click(function (e) {
+                e.preventDefault();
+
+                fieldName = $(this).attr('data-field');
+                type = $(this).attr('data-type');
+                var input = $("input[name='" + fieldName + "']");
+                var currentVal = parseInt(input.val());
+                if (!isNaN(currentVal)) {
+                    if (type == 'minus') {
+
+                        if (currentVal > input.attr('min')) {
+                            input.val(currentVal - 1).change();
+                        }
+                        if (parseInt(input.val()) == input.attr('min')) {
+                            $(this).attr('disabled', true);
+                        }
+
+                    } else if (type == 'plus') {
+
+                        if (currentVal < input.attr('max')) {
+                            input.val(currentVal + 1).change();
+                        }
+                        if (parseInt(input.val()) == input.attr('max')) {
+                            $(this).attr('disabled', true);
+                        }
+
+                    }
+                } else {
+                    input.val(0);
+                }
+            });
+            $('.input-number').focusin(function () {
+                $(this).data('oldValue', $(this).val());
+            });
+            $('.input-number').change(function () {
+
+                minValue = parseInt($(this).attr('min'));
+                maxValue = parseInt($(this).attr('max'));
+                valueCurrent = parseInt($(this).val());
+
+                name = $(this).attr('name');
+                if (valueCurrent >= minValue) {
+                    $(".btn-number[data-type='minus'][data-field='" + name + "']").removeAttr('disabled')
+                } else {
+                    alert('Sorry, the minimum value was reached');
+                    $(this).val($(this).data('oldValue'));
+                }
+                if (valueCurrent <= maxValue) {
+                    $(".btn-number[data-type='plus'][data-field='" + name + "']").removeAttr('disabled')
+                } else {
+                    alert('Sorry, the maximum value was reached');
+                    $(this).val($(this).data('oldValue'));
+                }
+
+
+            });
+            $(".input-number").keydown(function (e) {
+                // Allow: backspace, delete, tab, escape, enter and .
+                if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 190]) !== -1 ||
+                    // Allow: Ctrl+A
+                    (e.keyCode == 65 && e.ctrlKey === true) ||
+                    // Allow: home, end, left, right
+                    (e.keyCode >= 35 && e.keyCode <= 39)) {
+                    // let it happen, don't do anything
+                    return;
+                }
+                // Ensure that it is a number and stop the keypress
+                if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+                    e.preventDefault();
+                }
+            });
+
+
+
+
+
+
+        });
+
+
+    </script>
+
+</body>
+
+</html>

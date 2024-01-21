@@ -1,0 +1,235 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/js/jquery-1.8.3.min.js"></script>
+<div class="container-fluid">
+    <div class="page-content">
+        <div class="row" style="min-height:850px;">
+            <div class="col-md-12">
+                <h2 class="col-md-12">@ViewBag.shopname - Sub Menu</h2>
+                <div class="container">
+                    <button id="additembtn" style="margin:0 15px;" class="btn btn-warning  pull-right"><i class="fa fa-plus"></i> Add Submenu item</button>
+
+                    <button id="add" class="btn btn-danger   pull-right"><i class="fa fa-plus"></i> Add Submenu Group</button>
+                </div><br />
+
+                <div class="row">
+
+                    <script>
+                        $(document).ready(function () {
+                            $("#addform,.editrow,#addformitem").hide();
+
+                            $("#add").click(function () {
+                                $("#addform").show(2000);
+                            });
+
+                            $("#additembtn").click(function () {
+                                $("#addformitem").show(2000);
+                            });
+
+
+                            $("#cancel").click(function () {
+                                $("#addform").hide(2000);
+                            });
+
+                            $("#cancel2").click(function () {
+                                $("#addformitem").hide(2000);
+                            });
+                            $("select").addClass("form-control");
+                        });
+
+                        function openrow(row) {
+                            $("#edit-" + row).show(2000);
+                        }
+
+                   </script>
+
+
+                    <div id="addform" style="width:100%; display:none " class="col-md-12">
+                        <div class="col-md-12">
+                            <header class="panel-heading clearfix">
+                                @using (Html.BeginForm("SubMenuGroup", "Menu"))
+            {
+                                    @Html.AntiForgeryToken()
+                                    @Html.ValidationSummary(true)
+
+                                    <div class="col-md-12 pull-left">
+                                        <input type="hidden" name="ShopID" value="@ViewBag.ShopID" />
+
+                                        <div class="col-md-10">
+                                            <input type="text" name="SubMenuGroup" class="form-control cke_required" required placeholder="Sub Menu Group" />
+                                        </div>
+                                        <div class="col-md-2">
+                                            <input type="submit" name="submit" class="btn btn-danger" value="Save" />
+                                            <input type="button" id="cancel" class="btn btn-warning" value="Cancel" />
+                                        </div>
+                                    </div>
+
+                                }
+
+                            </header>
+                        </div>
+                    </div>
+
+
+
+
+                    <br />
+                    <div id="addformitem" style="width:100%;padding:25px;display:none ">
+                        <header class="panel-heading clearfix">
+                            @using (Html.BeginForm("SubMenuItem", "Menu"))
+            {
+                                @Html.AntiForgeryToken()
+                                @Html.ValidationSummary(true)
+
+                                <div class="col-md-12 pull-left">
+                                    <div class="col-md-2">
+                                        <br />
+                                        Sub Menu Group<br />
+                                        @Html.DropDownList("MenuSubItemGroupID")
+                                    </div>
+                                        <div class="col-md-2">
+                                            <br />
+                                            Sub Menu<br />
+                                            <input type="text" name="SubMenu" class="form-control cke_required" />
+                                        </div>
+                                        <div class="col-md-2">
+                                            <br />
+                                            Multiple Selectable<br />
+                                            <input type="radio" name="msel" value="0" checked /> No &nbsp;&nbsp;&nbsp;
+                                            <input type="radio" name="msel" value="1" /> Yes
+                                            <br />
+                                        </div>
+                                        <div class="col-md-2">
+                                            <br />
+                                            Priced<br />
+                                            <input type="radio" name="priced" value="0" checked /> No &nbsp;&nbsp;&nbsp;
+                                            <input type="radio" name="priced" value="1" /> Yes
+                                            <br />
+                                        </div><div class="col-md-2">
+                                            <br />
+                                            Amount<br />
+                                            <input type="number" name="Amount" class="form-control cke_required"  step="0.01"  />
+                                        </div><div class="col-md-2">
+                                                  <br />
+                                            <br />
+                                            <input type="submit" name="submit" class="btn btn-danger" value="Save" />
+                                            <input type="button" id="cancel2" class="btn btn-warning" value="Cancel" />
+                                        </div>
+                                    </div>
+
+                            }
+                        </header>
+                    </div>
+
+                </div>
+
+
+
+
+                <div class="container-fluid">
+
+
+                    <div class="row">
+
+                        <div class="col-md-12">
+
+
+                            <div class="panel panel-success">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title"><strong>Menu</strong></h3>
+                                </div>
+                                <div class="panel-body">
+
+                                    <div class="table-responsive">
+
+                                        @{
+                                            var cugro = "";
+                                            var firsttime = 0;
+                                        }
+
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+
+                                                    <th class="col-md-2">Submenu Item</th>
+                                                    <th class="col-md-3">Multiple Selectable</th>
+                                                    <th class="col-md-4">Priced</th>
+                                                    <th class="col-md-1">Rate (BD)</th>
+                                                    <th style="text-align:center" class="col-md-1">Delete</th>
+                                                </tr>
+                                            </thead>
+
+                                            @foreach (var menu in ViewBag.Submenus)
+                                            {
+                                                if (menu.MenuSubItemGroup != cugro)
+                                                {
+                                                    <tr>
+                                                        <td colspan="5"><h3>@menu.MenuSubItemGroup</h3></td>
+                                                    </tr>
+
+
+                                                }
+                                                <tr>
+                                                    <td>@menu.MenuSubItem</td>
+                                                    <td>@menu.MultipleSelectable</td>
+                                                    <td>@menu.Paid</td>
+                                                    <td>@menu.Amount</td>
+                                                    <td style="text-align:center">
+
+                                                        <div class="col-md-1 pull-left"><button onclick="openrow(@menu.MenuSubItemID)" class="btn btn-primary btn-xs "><i class="fa fa-pencil"></i></button></div>
+
+                                                        @using (Html.BeginForm("SubMenuItemDelete", "Menu"))
+                                                        {
+                                                            <input type="hidden" name="MenuSubItemID" value="@menu.MenuSubItemID" />
+                                                            <button title="Menu Delete" class="btn btn-danger  btn-xs pull-right "><i class="fa fa-trash-o"></i></button>
+                                                        }
+
+
+                                                    </td>
+                                                </tr>
+
+                                                using (Html.BeginForm("SubMenuItemEdit", "Menu"))
+                                                {
+                                                    <tr id="edit-@menu.MenuSubItemID" class="editrow">
+                                                        <td><input type="text" class="form-control" name="MenuSubItem" value="@menu.MenuSubItem" /></td>
+                                                        <td>
+                                                            <select name="MultipleSelectable">
+                                                                <option @(menu.MultipleSelectable == true ? "selected" : "") value="1">True</option>
+                                                                <option @(menu.MultipleSelectable == false ? "selected" : "") value="0">False</option>
+                                                            </select>
+                                                        </td>
+                                                        <td>
+                                                            <select name="Paid">
+                                                                <option @(menu.Paid == true ? "selected" : "") value="1">True</option>
+                                                                <option @(menu.Paid == false ? "selected" : "") value="0">False</option>
+                                                            </select>
+
+                                                        </td>
+                                                        <td><input type="text" class="form-control" name="Amount" value="@menu.Amount" /></td>
+                                                        <td style="text-align:center">
+
+
+                                                            <input type="hidden" name="MenuSubItemID" value="@menu.MenuSubItemID" />
+                                                            <button class="btn btn-warning "><i class="fa fa-pencil"></i> Update</button>
+                                                        </td>
+                                                    </tr>
+                                                }
+
+                                                cugro = menu.MenuSubItemGroup;
+                                            }
+                                        </table>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

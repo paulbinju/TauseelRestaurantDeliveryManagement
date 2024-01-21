@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="TMainModalStoreContainer" CdmEntityContainer="TMain">
+    <EntitySetMapping Name="Customer_T">
+      <EntityTypeMapping TypeName="TMainModal.Customer_T">
+        <MappingFragment StoreEntitySet="Customer_T">
+          <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="FlatVilla" ColumnName="FlatVilla" />
+          <ScalarProperty Name="Building" ColumnName="Building" />
+          <ScalarProperty Name="Road" ColumnName="Road" />
+          <ScalarProperty Name="Block" ColumnName="Block" />
+          <ScalarProperty Name="Location" ColumnName="Location" />
+          <ScalarProperty Name="DOC" ColumnName="DOC" />
+          <ScalarProperty Name="Source" ColumnName="Source" />
+          <ScalarProperty Name="CustomerNo" ColumnName="CustomerNo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

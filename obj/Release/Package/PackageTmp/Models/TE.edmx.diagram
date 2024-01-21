@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="bee36e864f38485da396807415eec9b2" Name="Diagram1">
+        <EntityTypeShape EntityType="TauseelEatModel.Menu_T" Width="1.5" PointX="3" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="TauseelEatModel.Menu_MenuSubItemGroup_T" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TauseelEatModel.MenuSubItem_T" Width="1.5" PointX="9.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TauseelEatModel.MenuSubItemGroup_T" Width="1.5" PointX="5.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TauseelEatModel.MenuType_T" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TauseelEatModel.Order_T" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="TauseelEatModel.OrderDetail_T" Width="1.5" PointX="5.25" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TauseelEatModel.Rating_T" Width="1.5" PointX="8" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TauseelEatModel.ResCustomer_T" Width="1.5" PointX="5.75" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TauseelEatModel.Shop_T" Width="1.5" PointX="0.75" PointY="10.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TauseelEatModel.ShopCuisine_T" Width="1.5" PointX="7.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TauseelEatModel.ShopLocation_T" Width="1.5" PointX="9.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TauseelEatModel.ShopTiming_T" Width="1.5" PointX="2.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TauseelEatModel.Status_T" Width="1.5" PointX="0.75" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TauseelEatModel.Category_T" Width="1.5" PointX="10.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TauseelEatModel.Cuisine_T" Width="1.5" PointX="10.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TauseelEatModel.Location_T" Width="1.5" PointX="11.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TauseelEatModel.database_firewall_rules" Width="1.5" PointX="11.75" PointY="9.75" IsExpanded="true" />
+        <AssociationConnector Association="TauseelEatModel.FK_Menu_T_MenuType_T" ManuallyRouted="false" />
+        <AssociationConnector Association="TauseelEatModel.FK_Menu_T_Shop_T" ManuallyRouted="false" />
+        <AssociationConnector Association="TauseelEatModel.FK_Order_T_Status_T" ManuallyRouted="false" />
+        <AssociationConnector Association="TauseelEatModel.FK_Order_T_Status_T1" ManuallyRouted="false" />
+        <AssociationConnector Association="TauseelEatModel.FK_OrderDetail_T_Order_T" ManuallyRouted="false" />
+        <AssociationConnector Association="TauseelEatModel.FK_Rating_T_Customer_T" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

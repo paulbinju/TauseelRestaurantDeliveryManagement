@@ -1,0 +1,36 @@
+﻿
+
+<div class="container-fluid">
+    <div class="page-content">
+        <div class="row" style="min-height:850px;">
+            @using (Html.BeginForm("ReportView", "Report"))
+            {
+                <div class="col-md-12">
+                    <div class="col-md-1">Restaurant</div>
+                    <div class="col-md-2">
+                        <select class="form-control" name="ShopID">
+                            @foreach (var res in ViewBag.Restaurants)
+                            {
+                            <option value="@res.ShopID">@res.ShopName</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col-md-1">Dates from</div>
+
+                    <div class="col-md-4">
+                        <div class="input-group input-large date-picker input-daterange" data-date="10/11/2012" data-date-format="mm/dd/yyyy">
+                            <input type="date" class="form-control" name="from" required>
+                            <span class="input-group-addon"> to </span>
+                            <input type="date" class="form-control" name="to" required>
+                        </div>
+
+                    </div>
+                    <div class="col-md-2">
+                        <input type="submit" class="btn btn-danger" value="Submit" />
+                    </div>
+
+                </div>
+            }
+        </div>
+    </div>
+</div>

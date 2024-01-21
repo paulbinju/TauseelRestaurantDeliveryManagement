@@ -1,0 +1,247 @@
+﻿@model IEnumerable<TauseelRestaurant.Models.Menu_T>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/js/jquery-1.8.3.min.js"></script>
+<div class="container-fluid">
+    <div class="page-content">
+        <div class="row" style="min-height:850px;">
+            <div class="col-md-12">
+                <h2 class="col-md-12">@ViewBag.shopname - Menu</h2>
+
+
+                <script>
+                    $(document).ready(function () {
+                        $(".editrow").hide();
+                        $("#add").click(function () {
+                            $("#addform").show(2000);
+                        });
+                        $("#cancel").click(function () {
+                            $("#addform").hide(2000);
+                        });
+                        $("select").addClass("form-control");
+                    });
+                    function openrow(row) {
+                        $("#edit-" + row).show(2000);
+                    }
+                </script>
+                <header class="panel-heading clearfix">
+                    <div id="addform" style="width:100%; ">
+                        @using (Html.BeginForm("Menu", "Menu", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(true)
+
+                            <div class="col-md-12 pull-left">
+                                <input type="hidden" name="ShopID" value="@ViewBag.ShopID" />
+                                <div class="col-md-4">
+                                    <br />Menu Type<br />
+                                    @Html.DropDownList("MenuTypeID")
+                                </div>
+                                <div class="col-md-6">
+                                    <br />Menu<br />
+                                    <input type="text" name="Menu" class="form-control cke_required" />
+                                </div>
+                                <div class="col-md-2">
+                                    <br />Rate (BD)<br />
+                                    <input type="number" step="any" name="Rate" class="form-control cke_required" />
+                                </div>
+                                <div class="col-md-6">
+                                    <br />Description<br />
+
+
+                                    <textarea name="Description" class="form-control cke_required" cols="50"></textarea>
+                                    <br />
+                                </div>
+
+                                <div class="col-md-4">
+                                    <br />
+                                    <br />
+
+                                    Pic <span style="font-size:10px;">(250 pixels width X 250 pixels height - .jpg format)</span>
+                                    <input type="file" name="pic" />
+                                    <br />
+                                </div>
+                               
+                                <div class="col-md-2"><br style="clear:both" />
+<br style="clear:both" />
+                                    <input type="submit" name="submit" class="btn btn-danger" value="Save" />
+                                    <input type="button" id="cancel" class="btn btn-warning" value="Cancel" />
+                                </div>
+                            </div>
+
+                        }
+                    </div>
+
+
+                </header>
+
+
+
+                <br style="clear:both" />
+                <br />
+
+                <div class="container-fluid">
+
+
+                    <div class="row">
+
+                        <div class="col-md-12">
+
+
+                            <div class="panel panel-success">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title"><strong>Menu</strong></h3>
+                                </div>
+                                <div class="panel-body">
+
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th class="col-md-1">Pic</th>
+                                                    <th class="col-md-1">Type</th>
+                                                    <th class="col-md-3">Menu</th>
+                                                    <th class="col-md-1">Rate (BD)</th>
+                                                    <th class="col-md-4">Description</th>
+                                                    <th class="col-md-2">Modify</th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+
+                                                @foreach (var menu in ViewBag.Menus)
+                                                {
+                                                    <tr>
+                                                        <td><a href="@Url.Content("~/shoplogos/menupic-"+menu.ShopID+"-"+ menu.MenuID+".jpg")" target="_blank"><img src="@Url.Content("~/shoplogos/menupic-"+menu.ShopID+"-"+ menu.MenuID+".jpg")" onerror="this.style.display='none'" width="60" height="60" /></a></td>
+                                                        <td style="font-size:11px;">@menu.MenuType</td>
+                                                        <td>
+                                                            @menu.Menu
+                                                            <span style="color:red;font-size:12px;"><br />@menu.MenuSubItemGroup</span>
+                                                        </td>
+                                                        <td>@menu.Rate</td>
+                                                        <td  style="font-size:11px;">
+                                                            @menu.Description
+
+                                                        </td>
+                                                        <td>
+                                                            <button title="Menu Edit" onclick="openrow(@menu.MenuID)" class="btn btn-primary btn-xs pull-left"><i class="fa fa-pencil"></i></button>
+
+                                                            @using (Html.BeginForm("MenuDelete", "Menu"))
+                                                            {
+                                                                <input type="hidden" name="MenuID" value="@menu.MenuID" />
+                                                                <button title="Menu Delete" class="btn btn-danger btn-xs pull-left"><i class="fa fa-trash-o"></i></button>
+                                                            }
+
+                                                            <br style="clear:both" /><br />
+                                                            <a title="Sub Menu Add" class="btn btn-warning btn-xs pull-left" data-toggle="modal" href="#ModalSubmenu-@menu.MenuID" style="margin-right:1px;">
+                                                                Attach Sub <i class="fa fa-plus"></i>
+                                                            </a>
+                                                            
+                                                            <div class="modal fade modal-dialog-center" id="ModalSubmenu-@menu.MenuID" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                                <div class="modal-dialog modal-lg">
+                                                                    <div class="modal-content-wrap">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header">
+                                                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                                                <h4 class="modal-title">Add Submenu</h4>
+                                                                            </div>
+                                                                            @using (Html.BeginForm("SubMenuAdd", "Menu"))
+                                                                            {
+                                                                                <div class="modal-body">
+                                                                                    Sub Menu for <strong>@menu.Menu</strong>
+                                                                                    <input type="hidden" value="@menu.MenuID" name="MenuID" />
+
+                                                                                    @{
+                                                                                        var curgroupid = 0;
+                                                                                    }
+                                                                                    @foreach (var smenu in ViewBag.Submenus)
+                                                                                    {
+                                                                                        if (curgroupid != smenu.MenuSubItemGroupID)
+                                                                                        {
+                                                                                            <br /><br /> <input type="checkbox" name="groupid" value="@smenu.MenuSubItemGroupID" /> @smenu.MenuSubItemGroup  <br />
+                                                                                        }
+                                                                                        <span style="font-size:11px;"> @smenu.MenuSubItem &nbsp;&nbsp;</span>
+                                                                                        curgroupid = smenu.MenuSubItemGroupID;
+                                                                                    }
+                                                                                </div>
+
+
+
+                                                                                <br style="clear:both" />
+                                                                                <div class="modal-footer">
+                                                                                    <button data-dismiss="modal" class="btn btn-default" type="button">Close</button>
+                                                                                    <input type="submit" class="btn btn-warning" value="Save">
+                                                                                </div>
+                                                                                        }
+
+
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+
+
+
+                                                            @using (Html.BeginForm("SubMenuDelete", "Menu"))
+                                                            {
+                                                                <input type="hidden" name="MenuID" value="@menu.MenuID" />
+                                                                <button title="Sub Menu Delete" class="btn btn-warning btn-xs pull-left" style="margin-right:1px;">Dettach Sub <i class="fa fa-trash-o"></i></button>
+                                                            }
+                                                            <br style="clear:both" /><br />
+                                                        </td>
+
+                                                    </tr>
+
+                                                                                        using (Html.BeginForm("MenuEdit", "Menu", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                                                                                        {
+                                                                                            Html.AntiForgeryToken();
+                                                                                            Html.ValidationSummary(true);
+                                                                                            <tr id="edit-@menu.MenuID" class="editrow">
+                                                                                                <td>
+
+                                                                                                    Pic <span style="font-size:10px;">(250 pixels width X 250 pixels height - .jpg format)</span>
+                                                                                                    <input type="file" name="pic" />
+                                                                                                </td>
+                                                                                                <td>@Html.DropDownList("MenuTypeID")</td>
+                                                                                                <td><input class="form-control cke_required" type="text" name="Menu" value="@menu.Menu" /></td>
+                                                                                                <td><input class="form-control cke_required" type="text" name="Rate" value="@menu.Rate" /></td>
+                                                                                                <td><input class="form-control cke_required" type="text" name="Description" value="@menu.Description" /></td>
+                                                                                                <td>
+                                                                                                    <input type="hidden" name="MenuID" value="@menu.MenuID" />
+                                                                                                    <input type="hidden" name="ShopID" value="@menu.ShopID" />
+
+                                                                                                    <input type="submit" class="btn btn-compose btn-xs" value="Update" />
+
+                                                                                                </td>
+
+
+
+                                                                                            </tr>
+                                                                                            }
+
+
+                                                                                        }
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,351 @@
+﻿<div class="container-fluid">
+    <div class="page-content">
+        <div class="row" style="min-height:850px;">
+            <div class="col-lg-12">
+                <section class="panel">
+                    <div class="col-lg-12" style="background-color:white;min-height:1000px">
+                        <div class="col-md-2 fa-border" style="min-height:100px;">
+                            <a class="btn btn-danger pull-right" data-toggle="modal" href="#logoModal">
+                                +
+                            </a><br style="clear:both" />
+@foreach (var item in ViewBag.Shops)
+{
+                            <img class="img-responsive" style="width:250px" src="@Url.Content("~/shoplogos/" + item.ShopID + "-" + item.HeaderPic)" />
+}
+                            
+                      
+                        </div>
+                        <script>
+                            $(document).ready(function () {
+                                $("#addform").hide();
+                                $("#add").click(function () {
+                                    $("#addform").show(2000);
+                                });
+
+                                $("#close").click(function () {
+                                    $("#addform").hide(2000);
+                                });
+                            });
+
+                        </script>
+                        <div class="col-md-10">
+                            
+                            
+
+
+
+                            <div class="col-md-12 fa-border" style="min-height:292px;">
+                                <br style="clear:both" />
+                                <a id="add" class="btn btn-danger  pull-right" href="#">
+                                    Add / Update Details
+                                </a>
+                                @foreach (var shop in ViewBag.Shops)
+                                {
+                                    <div class="col-md-12">
+                                        <b>Restaurant Name</b>
+                                        @shop.ShopName
+                                    </div>
+
+                           
+                                    <div class="col-md-4">
+
+                                        <b>Minimum Order</b>
+                                        @shop.MinOrder
+
+                                    </div>
+                                    <div class="col-md-4">
+                                        <b>Active</b>
+
+
+                                        @(shop.Active ? "Active" : "Not Active")
+
+
+                                    </div>
+
+
+                                    <div class="col-md-4">
+
+                                        <b>Email ID</b>:
+                                        @shop.Userid
+
+                                    </div>
+                                    <div class="col-md-4">
+
+                                        <b>Password</b>: @shop.Password
+                                    </div>
+
+
+
+                                }
+                                <br style="clear:both" />
+
+                                <div id="addform" style="height:230px; width:100%;padding:30px;background-color:#eeeeee ">
+                            
+                                    @foreach (var shop in ViewBag.Shops)
+                                    {
+                                        using (Html.BeginForm("MainItems", "Shop"))
+                                        {
+                                            <div class="col-md-12">
+                                                <b>Restaurant Name</b>
+                                                <input type="text" name="ShopName" value="@shop.ShopName" class="col-md-12 form-control" />
+                                            </div>
+                                            <br style="clear:both" />
+                                            <br />
+                                
+                                            <div class="col-md-6">
+
+                                                <b>Minimum Order</b>
+                                                <input type="text" name="MinOrder" value="@shop.MinOrder" class="col-md-12 form-control" />
+
+                                            </div>
+
+                                            <br style="clear:both" />
+
+                                            <div class="col-md-3">
+
+                                                <b>Email ID</b><br style="clear:both" />
+                                                <input type="email" name="Userid" class="form-control" value="@shop.Userid" />
+
+                                            </div>
+                                            <div class="col-md-3">
+
+                                                <b>Password</b><br style="clear:both" />
+                                                <input type="text" name="Password" class="form-control" value="@shop.Password" />
+                                            </div>
+                                            <div class="col-md-3">
+                                                <b>Active</b>
+                                                <br style="clear:both" />
+
+                                                <input type="radio" name="active" value="1" @(shop.Active ? "checked" : "") /> Yes &nbsp;&nbsp;<input type="radio" name="active" value="0" @(!shop.Active ? "checked" : "") /> No
+
+                                                <input type="hidden" name="ShopID" value="@ViewBag.ShopID" />
+                                            </div>
+                                            <div class="col-md-3">
+                                                <br />
+                                                <input type="submit" class="btn btn-danger" value="Save" />
+                                                <input type="button" class="btn btn-warning" id="close" value="Cancel" />
+                                            </div>
+
+                                        }
+
+                                    }
+                                </div>
+                            </div>
+
+                           
+                        </div>
+                            <br style="clear:both" />
+                            <br style="clear:both" />
+                            <br style="clear:both" />
+                        
+                        <div class="col-md-12 fa-border">
+                            <b>Locations</b><br style="clear:both" />
+
+                            <div class="col-md-9">
+                                @foreach (var loc in ViewBag.Showlocations)
+                                {
+                                    <div class="col-md-3">@loc.LocationName</div>
+
+                                }
+
+                            </div>
+
+                            <div class="col-md-3">
+                                <a class="btn btn-warning  pull-right" data-toggle="modal" href="#locationsModal">
+                                    Add / Update Locations
+                                </a>
+                            </div>
+
+
+
+
+                            <br />
+                            <br class="clear:both" />
+                            <br />
+                            <br />
+
+                        </div>
+                        <br style="clear:both" /><br style="clear:both" />
+                        <div class="col-md-12 fa-border">
+
+                            <br class="clear:both" />
+                           
+
+                            <b>Cuisine</b><br style="clear:both" />
+
+                            <div class="col-md-9">
+
+                                @foreach (var cus in ViewBag.Showcuisines)
+                                {
+                                    <div class="col-md-3">@cus.CuisineName</div>
+
+                                }
+                            </div>
+                            <div class="col-md-3">
+                                <a class="btn btn-success  pull-right" data-toggle="modal" href="#cuisineModal">
+                                    Add / Update Cuisine
+                                </a>
+                            </div>
+                            <br />
+                            <br style="clear:both" />
+                            <br />
+                            <br />
+
+                        </div>
+
+
+
+                        <br style="clear:both" />
+                        <br class="clear:both" />
+                       
+
+
+                    </div>
+
+                    <div class="modal fade modal-dialog-center" id="logoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content-wrap">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                        <h4 class="modal-title">Add / Update Logo</h4>
+                                    </div>
+                                    @using (Html.BeginForm("Edit", "Shop", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                                    {
+                                        <div class="modal-body">
+
+                                            Select  Logo <span style="font-size:10px;">(500 pixels width X 400 pixels height - .jpg format)</span><br /><br />
+                                            <input type="file" name="pic" />
+                                            <input type="hidden" name="ShopID" value="@ViewBag.ShopID" /><br />
+                                        </div>
+
+                                        <div class="modal-footer">
+                                            <button data-dismiss="modal" class="btn btn-default" type="button">Close</button>
+                                            <input type="submit" class="btn btn-warning" value="Confirm" />
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal fade modal-dialog-center" id="locationsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content-wrap">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                        <h4 class="modal-title">Add / Update Locations</h4>
+                                    </div>
+                                    @using (Html.BeginForm("AddLocations", "Shop"))
+                                    {
+                                        <div class="modal-body">
+
+                                            @foreach (var loc in ViewBag.locations)
+                                            {
+                                                int flagloc = 0;
+                                                foreach (var sloc in ViewBag.Showlocations)
+                                                {
+                                                    if (sloc.LocationID == loc.LocationID)
+                                                    {
+                                                        flagloc = 1;
+                                                        <div class="col-md-3"><input type="checkbox" name="location" checked value="@loc.LocationID" /> @loc.Location</div>
+                                                    }
+
+                                                }
+
+                                                if (flagloc == 0)
+                                                {
+
+                                                    <div class="col-md-3"><input type="checkbox" name="location" value="@loc.LocationID" /> @loc.Location</div>
+                                                }
+
+                                                flagloc = 1;
+                                            }
+
+                                        </div><br style="clear:both" />
+                                        <div class="modal-footer">
+                                            <button data-dismiss="modal" class="btn btn-default" type="button">Close</button>
+                                            <button class="btn btn-warning" type="submit"> Confirm</button>
+                                        </div>
+                                        <input type="hidden" name="ShopID" value="@ViewBag.ShopID" />
+
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="modal fade modal-dialog-center" id="cuisineModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content-wrap">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                        <h4 class="modal-title">Add / Update Cuisine</h4>
+                                    </div>
+
+                                    @using (Html.BeginForm("AddCuisines", "Shop"))
+                                    {
+                                        <div class="modal-body">
+
+                                            @foreach (var cus in ViewBag.cuisine)
+                                            {
+                                                int flagcus = 0;
+                                                foreach (var scus in ViewBag.Showcuisines)
+                                                {
+                                                    if (scus.CuisineID == cus.CuisineID)
+                                                    {
+                                                        flagcus = 1;
+                                                        <div class="col-md-3"><input type="checkbox" name="cuisine" checked value="@cus.CuisineID" /> @cus.Cuisine</div>
+                                                    }
+                                                }
+
+                                                if (flagcus == 0)
+                                                {
+                                                    <div class="col-md-3"><input type="checkbox" name="cuisine" value="@cus.CuisineID" /> @cus.Cuisine</div>
+                                                }
+                                                flagcus = 0;
+                                            }
+
+                                        </div><br style="clear:both" />
+                                        <div class="modal-footer">
+                                            <button data-dismiss="modal" class="btn btn-default" type="button">Close</button>
+                                            <button class="btn btn-warning" type="submit"> Confirm</button>
+                                            <input type="hidden" name="ShopID" value="@ViewBag.ShopID" />
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </section>
+
+
+
+            </div>
+
+            <script src="~/js/jquery-1.8.3.min.js"></script>
+            <script>
+                $("select").addClass("form-control");
+            </script>
+            <script>
+                $(document).ready(function () {
+                    $("#addform").hide();
+                    $("#add").click(function () {
+                        $("#addform").show(2000);
+                    });
+
+                    $("#close").click(function () {
+                        $("#addform").hide(2000);
+                    });
+                });
+
+            </script>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,168 @@
+﻿@{
+    Layout = null;
+    ViewBag.Title = "Tauseel Order Print";
+    int discount = Convert.ToInt32(ViewBag.Discount);
+
+}
+<link href="//fonts.googleapis.com/css?family=Oswald:400,300,700" rel="stylesheet" type="text/css" />
+<!-- END LAYOUT FIRST STYLES -->
+<!-- BEGIN GLOBAL MANDATORY STYLES -->
+<link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("~/assets/global/plugins/font-awesome/css/font-awesome.min.css")" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("~/assets/global/plugins/simple-line-icons/simple-line-icons.min.css")" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("~/assets/global/plugins/bootstrap/css/bootstrap.min.css")" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("~/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css")" rel="stylesheet" type="text/css" />
+<script src="@Url.Content("~/js/jquery-1.8.3.min.js")"></script>
+
+<script>
+    window.print();
+
+</script>
+<style>
+    td, th {
+        padding: 5px 0;
+    }
+</style>
+
+<!-- END THEME LAYOUT STYLES -->
+<link rel="shortcut icon" href="favicon.ico" />
+@foreach (var order in ViewBag.OrderDCS)
+{
+    <div class="container" style="background-color:white;width:100%;">
+
+        <div class="row">
+            <div class="col-md-9">
+
+
+                <div class="container">
+                    <img src="@Url.Content("~/images/logo.png")" />
+
+                    <div class="col-md-3 pull-right">
+                        <h3> Order Report</h3>
+                    </div>
+
+                    <div class="row col-md-9" style="background-color: #E8E8E8;padding:10px 0">
+                        <div class="col-md-3">
+                            <label class="control-label">Order ID: </label> <label style="font-weight: normal;" class="control-label">TEO-@order.OrderID</label><br />
+
+                        </div>
+                        <div class="col-md-3">
+                            <label class="control-label">Date: </label> <label style="font-weight: normal;" class="control-label">@order.OrderDate</label><br />
+
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+
+
+
+                        <table style="width:100%">
+                            <thead style="background-color: #FF4C57; color: white;">
+                                <tr>
+                                    <th>Item</th>
+
+                                    <th>Qty</th>
+                                    <th>Amt</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    decimal amt = 0;
+                                    decimal total = 0;
+                                    decimal grandtotal = 0;
+
+                                    decimal deliverycharge = 0;
+                                    decimal afterdiscount = 0;
+                                }
+                                @foreach (var orderd in ViewBag.OrderDCS)
+                                {
+                                    if (orderd.OrderID == order.OrderID)
+                                    {
+                                        amt = orderd.Amount * orderd.Quantity;
+                                        total += amt;
+
+                                        deliverycharge = orderd.DeliveryCharge;
+
+                                        afterdiscount = total * discount / 100;
+
+                                        grandtotal = total - afterdiscount + deliverycharge;
+                                        <tr>
+                                            <td>@Html.Raw(orderd.Menu.Replace("-@", "</em>").Replace("@", " -<em style='font-size:11px;margin-left:10px;'> ").Replace("-$", "</em>").Replace("$", " -<em style='font-size:11px;margin-left:10px;'> "))</td>
+
+                                            <td>@orderd.Quantity</td>
+                                            <td>BD @Math.Round(orderd.Amount, 3) </td>
+                                        </tr>
+                                    }
+                                }
+
+
+                                <tr style="padding-top:10px;border-top:2px solid #444">
+                                    <td colspan="2" style="text-align:right;padding:10px 20px 0 0"><strong>Gross Amount</strong></td>
+                                    <td>BD @Math.Round(total, 3)</td>
+
+                                </tr>
+
+
+                                <tr>
+                                    <td colspan="2" style="text-align:right;padding:10px 20px 0 0"><strong>Discount (@discount %)</strong></td>
+                                    <td>
+                                        BD @afterdiscount
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td colspan="2" style="text-align:right;padding:10px 20px 0 0"><strong>Delivery Charges</strong></td>
+                                    <td>BD @deliverycharge</td>
+
+                                </tr>
+
+                                <tr>
+                                    <td colspan="2" style="text-align:right;font-size:18px;color:red;height:50px;padding:10px 20px 0 0"><strong>Total Amount</strong></td>
+                                    <td style="font-size:18px;color:red;height:50px;border-bottom:1px dashed #ccc;padding:10px 20px 0 0;font-weight:bold">BD @Math.Round(grandtotal, 3)</td>
+
+                                </tr>
+
+                            </tbody>
+                        </table>
+
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h4>Special Requests</h4>
+                            @order.DeliveryAdvice
+                        </div>
+                        <br style="clear:both" />
+                        <div class="col-md-9" style="background-color:#eeeeee">
+                            <h3>Customer Address</h3>
+
+
+                            <div class="col-md-4">
+                                <label class="control-label">Name: @order.Name</label><br />
+                                <label class="control-label">Email: @order.Email</label><br />
+                                <label class="control-label">Phone: @order.Phone</label><br />
+                                <label class="control-label">Flat No / Office No: @order.FlatVilla</label><br />
+                            </div><div class="col-md-4">
+                                <label class="control-label">Building No: @order.Building</label><br />
+                                <label class="control-label">Road: @order.Road</label><br />
+                                <label class="control-label">Block: @order.Block</label><br />
+                                <label class="control-label">Location: @order.Location</label><br />
+                                <br style="clear:both" />
+                            </div>
+
+
+
+
+
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+                                        return;
+                                    }

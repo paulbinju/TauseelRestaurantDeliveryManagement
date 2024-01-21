@@ -1,0 +1,370 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TauseelEatModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'TauseelEat.dbo.Category_T' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Category_T">
+    <Key>
+      <PropertyRef Name="CategoryID" />
+    </Key>
+    <Property Name="CategoryID" Type="int" Nullable="false" />
+    <Property Name="Category" Type="nvarchar(max)" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'TauseelEat.dbo.Cuisine_T' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Cuisine_T">
+    <Key>
+      <PropertyRef Name="CuisineID" />
+    </Key>
+    <Property Name="CuisineID" Type="int" Nullable="false" />
+    <Property Name="Cuisine" Type="nvarchar" MaxLength="150" />
+    <Property Name="SlugCuisine" Type="nvarchar" MaxLength="2083" />
+    <Property Name="MetaTitle" Type="nvarchar" MaxLength="160" />
+    <Property Name="MetaDescription" Type="nvarchar" MaxLength="200" />
+    <Property Name="MetaKeywords" Type="nvarchar" MaxLength="250" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'TauseelEat.dbo.Location_T' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Location_T">
+    <Key>
+      <PropertyRef Name="LocationID" />
+    </Key>
+    <Property Name="LocationID" Type="int" Nullable="false" />
+    <Property Name="CountryID" Type="int" />
+    <Property Name="CityID" Type="int" />
+    <Property Name="Location" Type="nvarchar" MaxLength="50" />
+    <Property Name="Group_LocationID" Type="int" />
+  </EntityType>
+  <EntityType Name="Menu_T">
+    <Key>
+      <PropertyRef Name="MenuID" />
+    </Key>
+    <Property Name="MenuID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MenuTypeID" Type="int" />
+    <Property Name="ShopID" Type="int" />
+    <Property Name="SequenceNo" Type="int" />
+    <Property Name="Menu" Type="nvarchar(max)" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="PriceUponSelection" Type="bit" />
+    <Property Name="Rate" Type="float" />
+    <Property Name="Discount" Type="decimal" Precision="18" Scale="3" />
+    <Property Name="Offer" Type="bit" />
+  </EntityType>
+  <EntityType Name="Menu-MenuSubItemGroup_T">
+    <Key>
+      <PropertyRef Name="Menu-SubItemGroupID" />
+    </Key>
+    <Property Name="Menu-SubItemGroupID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MenuID" Type="int" />
+    <Property Name="MenuSubitemGroupID" Type="int" />
+  </EntityType>
+  <EntityType Name="MenuSubItem_T">
+    <Key>
+      <PropertyRef Name="MenuSubItemID" />
+    </Key>
+    <Property Name="MenuSubItemID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MenuSubItemGroupID" Type="int" />
+    <Property Name="MenuSubItem" Type="nvarchar" MaxLength="150" />
+    <Property Name="MultipleSelectable" Type="bit" />
+    <Property Name="Paid" Type="bit" />
+    <Property Name="Amount" Type="money" />
+  </EntityType>
+  <EntityType Name="MenuSubItemGroup_T">
+    <Key>
+      <PropertyRef Name="MenuSubItemGroupID" />
+    </Key>
+    <Property Name="MenuSubItemGroupID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ShopID" Type="int" />
+    <Property Name="MenuSubItemGroup" Type="nvarchar" MaxLength="250" />
+  </EntityType>
+  <EntityType Name="MenuType_T">
+    <Key>
+      <PropertyRef Name="MenuTypeID" />
+    </Key>
+    <Property Name="MenuTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ShopID" Type="int" />
+    <Property Name="MenuType" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Order_T">
+    <Key>
+      <PropertyRef Name="OrderID" />
+    </Key>
+    <Property Name="OrderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="OrderDate" Type="smalldatetime" />
+    <Property Name="StoreID" Type="int" />
+    <Property Name="CustomerID" Type="int" />
+    <Property Name="DeliveryAdvice" Type="ntext" />
+    <Property Name="CurrentStatusID" Type="int" />
+    <Property Name="GrossAmount" Type="numeric" Precision="6" Scale="3" />
+    <Property Name="DeliveryCharge" Type="numeric" Precision="6" Scale="3" />
+  </EntityType>
+  <EntityType Name="OrderDetail_T">
+    <Key>
+      <PropertyRef Name="OrderDetailID" />
+    </Key>
+    <Property Name="OrderDetailID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="OrderID" Type="int" />
+    <Property Name="Menu" Type="nvarchar(max)" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="Position" Type="int" />
+    <Property Name="Amount" Type="money" />
+    <Property Name="Quantity" Type="int" />
+  </EntityType>
+  <EntityType Name="Rating_T">
+    <Key>
+      <PropertyRef Name="RatingID" />
+    </Key>
+    <Property Name="RatingID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CustomerID" Type="int" />
+    <Property Name="Rating" Type="nchar" MaxLength="10" />
+    <Property Name="Feedback" Type="ntext" />
+    <Property Name="DOC" Type="smalldatetime" />
+  </EntityType>
+  <EntityType Name="ResCustomer_T">
+    <Key>
+      <PropertyRef Name="CustomerID" />
+    </Key>
+    <Property Name="CustomerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
+    <Property Name="Email" Type="nvarchar" MaxLength="50" />
+    <Property Name="Password" Type="nchar" MaxLength="10" />
+    <Property Name="Mobile" Type="nchar" MaxLength="20" />
+    <Property Name="Phone" Type="nchar" MaxLength="20" />
+    <Property Name="FlatVilla" Type="nvarchar" MaxLength="50" />
+    <Property Name="Building" Type="nvarchar" MaxLength="50" />
+    <Property Name="Road" Type="nvarchar" MaxLength="50" />
+    <Property Name="Block" Type="nvarchar" MaxLength="50" />
+    <Property Name="Location" Type="nvarchar(max)" />
+    <Property Name="DOC" Type="smalldatetime" />
+    <Property Name="Landmark" Type="nvarchar(max)" />
+    <Property Name="MainCustomerID" Type="int" />
+  </EntityType>
+  <EntityType Name="Shop_T">
+    <Key>
+      <PropertyRef Name="ShopID" />
+    </Key>
+    <Property Name="ShopID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ShopName" Type="nvarchar(max)" />
+    <Property Name="Logo" Type="nvarchar(max)" />
+    <Property Name="HeaderPic" Type="nvarchar(max)" />
+    <Property Name="Userid" Type="nvarchar" MaxLength="50" />
+    <Property Name="Password" Type="nvarchar" MaxLength="50" />
+    <Property Name="MinOrder" Type="decimal" Precision="18" Scale="3" />
+    <Property Name="Active" Type="bit" />
+    <Property Name="DeliveryCharge" Type="decimal" Precision="18" Scale="3" />
+    <Property Name="CurrentStatus" Type="int" />
+    <Property Name="Branch" Type="bit" />
+    <Property Name="MainShopID" Type="int" />
+    <Property Name="PhoneNo" Type="nvarchar" MaxLength="50" />
+    <Property Name="Address" Type="ntext" />
+    <Property Name="Lattitude" Type="nvarchar" MaxLength="50" />
+    <Property Name="Longitude" Type="nvarchar" MaxLength="50" />
+    <Property Name="HasOffers" Type="bit" />
+    <Property Name="Discount" Type="int" />
+    <Property Name="DOC" Type="smalldatetime" />
+  </EntityType>
+  <EntityType Name="ShopCuisine_T">
+    <Key>
+      <PropertyRef Name="ShopCuisine" />
+    </Key>
+    <Property Name="ShopCuisine" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ShopID" Type="int" />
+    <Property Name="CuisineID" Type="int" />
+  </EntityType>
+  <EntityType Name="ShopLocation_T">
+    <Key>
+      <PropertyRef Name="ShopLocationID" />
+    </Key>
+    <Property Name="ShopLocationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ShopID" Type="int" />
+    <Property Name="LocationID" Type="int" />
+    <Property Name="LocDeliveryCharge" Type="decimal" Precision="18" Scale="3" />
+  </EntityType>
+  <EntityType Name="ShopTiming_T">
+    <Key>
+      <PropertyRef Name="ShopTimingID" />
+    </Key>
+    <Property Name="ShopTimingID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ShopID" Type="int" />
+    <Property Name="Day" Type="nchar" MaxLength="3" />
+    <Property Name="StartTime" Type="time" Precision="7" />
+    <Property Name="EndTime" Type="time" Precision="7" />
+  </EntityType>
+  <EntityType Name="Status_T">
+    <Key>
+      <PropertyRef Name="StatusID" />
+    </Key>
+    <Property Name="StatusID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Status" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'TauseelEat.sys.database_firewall_rules' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="database_firewall_rules">
+    <Key>
+      <PropertyRef Name="id" />
+      <PropertyRef Name="name" />
+      <PropertyRef Name="start_ip_address" />
+      <PropertyRef Name="end_ip_address" />
+      <PropertyRef Name="create_date" />
+      <PropertyRef Name="modify_date" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="start_ip_address" Type="varchar" MaxLength="45" Nullable="false" />
+    <Property Name="end_ip_address" Type="varchar" MaxLength="45" Nullable="false" />
+    <Property Name="create_date" Type="datetime" Nullable="false" />
+    <Property Name="modify_date" Type="datetime" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Menu_T_MenuType_T">
+    <End Role="MenuType_T" Type="Self.MenuType_T" Multiplicity="0..1" />
+    <End Role="Menu_T" Type="Self.Menu_T" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MenuType_T">
+        <PropertyRef Name="MenuTypeID" />
+      </Principal>
+      <Dependent Role="Menu_T">
+        <PropertyRef Name="MenuTypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Menu_T_Shop_T">
+    <End Role="Shop_T" Type="Self.Shop_T" Multiplicity="0..1" />
+    <End Role="Menu_T" Type="Self.Menu_T" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Shop_T">
+        <PropertyRef Name="ShopID" />
+      </Principal>
+      <Dependent Role="Menu_T">
+        <PropertyRef Name="ShopID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Order_T_Status_T">
+    <End Role="Status_T" Type="Self.Status_T" Multiplicity="0..1" />
+    <End Role="Order_T" Type="Self.Order_T" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Status_T">
+        <PropertyRef Name="StatusID" />
+      </Principal>
+      <Dependent Role="Order_T">
+        <PropertyRef Name="CurrentStatusID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Order_T_Status_T1">
+    <End Role="Status_T" Type="Self.Status_T" Multiplicity="0..1" />
+    <End Role="Order_T" Type="Self.Order_T" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Status_T">
+        <PropertyRef Name="StatusID" />
+      </Principal>
+      <Dependent Role="Order_T">
+        <PropertyRef Name="CurrentStatusID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrderDetail_T_Order_T">
+    <End Role="Order_T" Type="Self.Order_T" Multiplicity="0..1" />
+    <End Role="OrderDetail_T" Type="Self.OrderDetail_T" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Order_T">
+        <PropertyRef Name="OrderID" />
+      </Principal>
+      <Dependent Role="OrderDetail_T">
+        <PropertyRef Name="OrderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Rating_T_Customer_T">
+    <End Role="ResCustomer_T" Type="Self.ResCustomer_T" Multiplicity="0..1" />
+    <End Role="Rating_T" Type="Self.Rating_T" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ResCustomer_T">
+        <PropertyRef Name="CustomerID" />
+      </Principal>
+      <Dependent Role="Rating_T">
+        <PropertyRef Name="CustomerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="delCustomer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="customerid" Type="int" Mode="In" />
+  </Function>
+  <Function Name="delShop" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="shopid" Type="int" Mode="In" />
+  </Function>
+  <EntityContainer Name="TauseelEatModelStoreContainer">
+    <EntitySet Name="Menu_T" EntityType="Self.Menu_T" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Menu-MenuSubItemGroup_T" EntityType="Self.Menu-MenuSubItemGroup_T" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MenuSubItem_T" EntityType="Self.MenuSubItem_T" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MenuSubItemGroup_T" EntityType="Self.MenuSubItemGroup_T" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MenuType_T" EntityType="Self.MenuType_T" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Order_T" EntityType="Self.Order_T" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="OrderDetail_T" EntityType="Self.OrderDetail_T" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Rating_T" EntityType="Self.Rating_T" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ResCustomer_T" EntityType="Self.ResCustomer_T" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Shop_T" EntityType="Self.Shop_T" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ShopCuisine_T" EntityType="Self.ShopCuisine_T" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ShopLocation_T" EntityType="Self.ShopLocation_T" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ShopTiming_T" EntityType="Self.ShopTiming_T" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Status_T" EntityType="Self.Status_T" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Category_T" EntityType="Self.Category_T" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+[Category_T].[CategoryID] AS [CategoryID], 
+[Category_T].[Category] AS [Category]
+FROM [dbo].[Category_T] AS [Category_T]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="Cuisine_T" EntityType="Self.Cuisine_T" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+[Cuisine_T].[CuisineID] AS [CuisineID], 
+[Cuisine_T].[Cuisine] AS [Cuisine], 
+[Cuisine_T].[SlugCuisine] AS [SlugCuisine], 
+[Cuisine_T].[MetaTitle] AS [MetaTitle], 
+[Cuisine_T].[MetaDescription] AS [MetaDescription], 
+[Cuisine_T].[MetaKeywords] AS [MetaKeywords]
+FROM [dbo].[Cuisine_T] AS [Cuisine_T]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="Location_T" EntityType="Self.Location_T" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+[Location_T].[LocationID] AS [LocationID], 
+[Location_T].[CountryID] AS [CountryID], 
+[Location_T].[CityID] AS [CityID], 
+[Location_T].[Location] AS [Location], 
+[Location_T].[Group_LocationID] AS [Group_LocationID]
+FROM [dbo].[Location_T] AS [Location_T]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="database_firewall_rules" EntityType="Self.database_firewall_rules" store:Type="Views" store:Schema="sys">
+      <DefiningQuery>SELECT 
+[database_firewall_rules].[id] AS [id], 
+[database_firewall_rules].[name] AS [name], 
+[database_firewall_rules].[start_ip_address] AS [start_ip_address], 
+[database_firewall_rules].[end_ip_address] AS [end_ip_address], 
+[database_firewall_rules].[create_date] AS [create_date], 
+[database_firewall_rules].[modify_date] AS [modify_date]
+FROM [sys].[database_firewall_rules] AS [database_firewall_rules]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK_Menu_T_MenuType_T" Association="Self.FK_Menu_T_MenuType_T">
+      <End Role="MenuType_T" EntitySet="MenuType_T" />
+      <End Role="Menu_T" EntitySet="Menu_T" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Menu_T_Shop_T" Association="Self.FK_Menu_T_Shop_T">
+      <End Role="Shop_T" EntitySet="Shop_T" />
+      <End Role="Menu_T" EntitySet="Menu_T" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order_T_Status_T" Association="Self.FK_Order_T_Status_T">
+      <End Role="Status_T" EntitySet="Status_T" />
+      <End Role="Order_T" EntitySet="Order_T" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order_T_Status_T1" Association="Self.FK_Order_T_Status_T1">
+      <End Role="Status_T" EntitySet="Status_T" />
+      <End Role="Order_T" EntitySet="Order_T" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrderDetail_T_Order_T" Association="Self.FK_OrderDetail_T_Order_T">
+      <End Role="Order_T" EntitySet="Order_T" />
+      <End Role="OrderDetail_T" EntitySet="OrderDetail_T" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Rating_T_Customer_T" Association="Self.FK_Rating_T_Customer_T">
+      <End Role="ResCustomer_T" EntitySet="ResCustomer_T" />
+      <End Role="Rating_T" EntitySet="Rating_T" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

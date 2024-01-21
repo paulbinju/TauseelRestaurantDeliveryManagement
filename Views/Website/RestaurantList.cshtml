@@ -1,0 +1,456 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Restaurants</title>
+    <link href="@Url.Content("~/Content/bootstrap.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/chosen.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/chosen-default-settings.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/Custom.css")" rel="stylesheet" />
+
+    <link href="@Url.Content("~/fonts/font-awesome.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/jquery.bxslider.css")" rel="stylesheet" />
+
+    <link href="@Url.Content("~/Content/footer-distributed-with-address-and-phones.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/styles.css")" rel="stylesheet" />
+    <style>
+        .badge-open {
+            font-size: 15px;
+            background-color: #5cb85c;
+        }
+
+        .badge-closed {
+            font-size: 15px;
+            background-color: #d9534f;
+        }
+
+        .product-thumb .product-title {
+            font-size: 150%;
+            font-weight: bold;
+            color: #444;
+        }
+
+
+        .product-time {
+            margin-top: 8px;
+            font-weight: normal;
+        }
+
+
+
+
+
+        /* enable absolute positioning */
+        .inner-addon {
+            position: relative;
+        }
+
+            /* style icon */
+            .inner-addon .fa {
+                position: absolute;
+                padding: 10px;
+                pointer-events: none;
+            }
+
+        /* align icon */
+        .left-addon .fa {
+            left: 0px;
+        }
+
+        .right-addon .fa {
+            right: 0px;
+        }
+
+        /* add padding  */
+        .left-addon input {
+            padding-left: 30px;
+        }
+
+        .right-addon input {
+            padding-right: 30px;
+        }
+    </style>
+
+</head>
+<body>
+
+
+    <nav class="navbar navbar-new navbar-fixed-top" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Order Food Online</a>
+                <!--<a class="navbar-brand" href="#"><img src="images/Tauseel-logo-V2.jpg" alt="logo" /></a>-->
+                <!--<a class="navbar-brand" rel="home" href="#" title="Buy Sell Rent Everyting">
+                    <img style="max-width:100px; margin-top: -7px;"
+                         src="images/Tauseel-logo-V2.jpg">
+                </a>-->
+                <!--<a href="#" class="pull-left"><img src="images/Tauseel-logo-V2.jpg"></a>-->
+
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <!--<ul class="nav navbar-nav">
+                    <li class="active"><a href="#">Home</a></li>
+                    <li><a href="#">Page 1</a></li>
+                    <li><a href="#">Page 2</a></li>
+                    <li><a href="#">Page 3</a></li>
+                </ul>-->
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                    <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="gap-big"></div>
+    <div class="gap-big"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <ul class="breadcrumb">
+                    <li><a href="@Url.Content("~/")" class="btn btn-default">Home</a></li>
+                    <li class="active btn btn-danger" style="background-color:rgba(226, 77, 77, 0.96);   border-color: #ac2925; ">Select Restaurant</li>
+                    <li class="btn btn-default">Select Food</li>
+                    <li><a href="#" class="btn btn-default">Checkout</a></li>
+                </ul>
+            </div>
+        </div>
+        <br />
+        <div class="container">
+            <div class="row">
+                <h3> Restaurants in @ViewBag.Location area</h3>
+            </div>
+        </div>
+        <br />
+
+
+
+    </div>
+
+
+
+
+    <div class="container">
+
+
+
+      @*  <div class="row">
+        <form class="form-horizontal" role="form">
+
+            <div class="col-md-12">
+
+                <div class="panel panel-danger" style="border-color:rgba(85, 90, 100, 0.25); ">
+                    <div class="panel-heading" style="font-size: 130%;font-weight :600;color: #FFFFFF;background-color: rgba(226, 77, 77, 0.96);border-color: #E2514D;">Search &amp; Filter</div>
+                    <div class="panel-body">
+
+
+                        <div class="row" style="padding:10px;">
+
+
+                            <div class="col-md-3">
+
+                                <div class="form-group">
+                                    <p style="font-size: 96%; font-weight: 600;     color: #444; ">Filter By Delivery Area / Cuisines</p>
+
+                                    <div class="col-md-12">
+
+                                        <select data-placeholder="Seef" class="chosen-select" style="width:195px;" tabindex="2">
+                                            <option value=""></option>
+                                            <option value="United States">Seef</option>
+                                            <option value="United Kingdom">Manama</option>
+                                            <option value="Afghanistan">Manama</option>
+                                            <option value="Aland Islands">Seef</option>
+                                            <option value="Albania">Manama</option>
+                                            <option value="Algeria">Manama</option>
+
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+
+                                    <div class="col-md-12">
+                                        <select data-placeholder="All Cuisines" class="chosen-select" style="width:195px;" tabindex="2">
+                                            <option value=""></option>
+                                            <option value="United States">All Cuisines</option>
+                                            <option value="United Kingdom">American</option>
+                                            <option value="Afghanistan">Indian</option>
+                                            <option value="Aland Islands">Asian</option>
+                                            <option value="Albania">Bahraini</option>
+                                            <option value="Algeria">Burgers</option>
+
+                                        </select>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+
+
+
+                            <div class="col-md-3">
+
+                                <div class="form-group" style="margin-left: 5px;margin-bottom:0px;width: 120px;">
+                                    <p style="font-size: 96%;font-weight: 600;color: #444;">Payment Options</p>
+                                </div>
+
+                                <div class="form-group">
+
+                                    <div class="col-md-12">
+                                        <div class="checkbox">
+                                            <label><input type="checkbox" value="">Online Payment</label>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="form-group">
+
+                                    <div class="col-md-12">
+                                        <div class="checkbox">
+                                            <label><input type="checkbox" value="">Cash On Delivery</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+
+                            <div class="col-md-3">
+
+
+                                <div class="form-group" style="margin-left: 5px;margin-bottom:0px;width: 120px;">
+                                    <p style="
+                                       font-size 96%;
+                                       font-weight 600;
+                                       color #444;
+                                       ">Filter By</p>
+                                </div>
+
+                                <div class="form-group">
+
+                                    <div class="col-md-12">
+                                        <div class="checkbox">
+                                            <label><input type="checkbox" value="">Offers</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+
+                                    <div class="col-md-12">
+                                        <div class="checkbox">
+                                            <label><input type="checkbox" value="">Open Restaurants</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+
+                                    <div class="col-md-12">
+                                        <div class="checkbox">
+                                            <label><input type="checkbox" value="">New Restaurants</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+
+
+                            <div class="col-md-3">
+
+
+
+                                <div class="form-group" style="margin-left: 5px;margin-bottom:0px;width: 120px;">
+                                    <p style="font-size: 96%;font-weight: 600; color :#444;">Sort By</p>
+                                </div>
+
+                                <div class="form-group">
+
+                                    <div class="col-md-12">
+                                        <select data-placeholder="All Restaurants" class="chosen-select" style="width:195px;" tabindex="2">
+                                            <option value=""></option>
+                                            <option value="United States">All Restaurants</option>
+                                            <option value="United Kingdom">American</option>
+                                            <option value="Afghanistan">Indian</option>
+                                            <option value="Aland Islands">Asian</option>
+                                            <option value="Albania">Bahraini</option>
+                                            <option value="Algeria">Burgers</option>
+
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+
+                                    <div class="col-md-12">
+                                        <!--<input type="password" class="form-control" id="pwd" placeholder="Enter password">-->
+
+                                        <div class="inner-addon right-addon">
+                                            <i class="fa fa-search"></i>
+
+                                            <input type="text" name="q" class="form-control" placeholder="Find Restaurants" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+
+
+            </div>
+
+
+        </form>
+    </div>
+    *@
+    </div>
+
+
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-md-9">
+                <p>@ViewBag.Message</p>
+
+                @{ int flag = 0;}
+                @foreach (var shop in ViewBag.AllShops)
+                {
+                    flag = 0;
+                    <div class="product-thumb product-thumb-horizontal">
+                        <header class="product-header" style="width: 115px;">
+                            <img src="@Url.Content("~/shoplogos/"+shop.ShopID+"-"+shop.HeaderPic)" alt="Image Alternative text"  onerror="this.style.display='none';" title="@shop.ShopName">
+                        </header>
+                        <div class="product-inner" style="width: 80%;">
+                            <h5 class="product-title">@shop.ShopName</h5>
+
+                            @foreach (var cusi in ViewBag.AllCuisines)
+                            {
+
+                                if (cusi.ShopID == shop.ShopID)
+                                {
+                                    <span>
+
+
+                                        @if (flag == 0)
+                                        {
+                                            @cusi.Cuisine
+
+                                            flag = 1;
+                                        }
+                                        else {
+
+                                            <span>,</span>
+                                            @cusi.Cuisine
+                                        }
+                                    </span>
+                                }
+
+                            }
+                            <br>
+                            <p>Min. Order: <strong>@shop.MinOrder</strong></p>
+                            <p>Delivery Charge: <strong>BD @shop.DeliveryCharge</strong></p>
+
+
+                            <i class="fa fa-money" style="font-size: 35px;color: #51A351;"></i>
+
+                            <div class="product-meta">
+
+                                <span class="badge badge-open"><i class="fa fa-home"></i> OPEN</span>
+                                <span class="product-time"><i class="fa fa-clock-o"></i> @shop.Timings</span>
+
+
+
+                                <a href="@Url.Content("~/Restaurant/"+shop.ShopID)" class="btn btn-success">Show Menu</a>
+
+
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+                }
+
+
+
+
+
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+
+
+
+
+
+
+    <script src="@Url.Content("~/Scripts/jquery-1.9.1.js")"></script>
+    <script src="@Url.Content("~/Scripts/bootstrap.js")"></script>
+    <script src="@Url.Content("~/Scripts/chosen.jquery.js")"></script>
+
+
+    <script type="text/javascript">
+        var config = {
+            '.chosen-select': {},
+            '.chosen-select-deselect': { allow_single_deselect: true },
+            '.chosen-select-no-single': { disable_search_threshold: 10 },
+            '.chosen-select-no-results': { no_results_text: 'Oops, nothing found!' },
+            '.chosen-select-width': { width: "95%" }
+        }
+        for (var selector in config) {
+            $(selector).chosen(config[selector]);
+        }
+
+
+
+
+
+        $(document).ready(function () {
+            $(window).scroll(function () {
+                if ($(this).scrollTop() > 60) {
+                    $('#back-to-top').fadeIn();
+                } else {
+                    $('#back-to-top').fadeOut();
+                }
+            });
+            // scroll body to 0px on click
+            $('#back-to-top').click(function () {
+                $('#back-to-top').tooltip('hide');
+                $('body,html').animate({
+                    scrollTop: 0
+                }, 800);
+                return false;
+            });
+
+            $('#back-to-top').tooltip('show');
+        });
+
+
+    </script>
+</body>
+</html>

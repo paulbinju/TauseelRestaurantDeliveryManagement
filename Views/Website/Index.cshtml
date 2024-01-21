@@ -1,0 +1,645 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Tauseel Restaurant Delivery</title>
+
+    <link href="@Url.Content("~/Content/bootstrap.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/chosen.css")" rel="stylesheet" />
+
+    <link href="@Url.Content("~/Content/Custom.css")" rel="stylesheet" />
+
+    <link href="@Url.Content("~/fonts/font-awesome.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/jquery.bxslider.css")" rel="stylesheet" />
+
+    <link href="@Url.Content("~/Content/footer-distributed-with-address-and-phones.css")" rel="stylesheet" />
+
+    <style>
+            .footer-menu {
+                margin: 8px auto;
+                float: right;
+            }
+
+
+            .top-space {
+                margin-top: 120px;
+            }
+
+            .mycontainer {
+                height: 120px;
+            }
+
+                .mycontainer .chzn-container-multi .chzn-choices {
+                    height: 120px !important;
+                    overflow-y: auto;
+                }
+
+            /* Result Size*/
+
+            .chosen-container .chosen-results {
+                max-height: 100px;
+            }
+
+            /* Select Size Color*/
+            .chosen-container-single .chosen-single {
+                padding: 10px 10px 10px 10px !important;
+                height: 50px !important;
+                /*border: 1px solid #DDD !important;
+        border-radius: 0px !important;*/
+                background: #F7F7F7 !important;
+                box-shadow: none !important;
+                color: #555 !important;
+                line-height: 28px !important;
+                border-radius: 25px;
+                font-size: larger;
+                font-weight: bold;
+                border: 2px solid #EAE6E6;
+            }
+
+            /*Active Select Size Color */
+
+            .chosen-container-active.chosen-with-drop .chosen-single {
+                border-radius: 15px 15px 0px 0px;
+                border: 2px solid #73AD21;
+            }
+
+            /* Css Sprite Size  */
+
+            .chosen-container-single .chosen-single div {
+                width: 40px;
+            }
+
+
+                .chosen-container-single .chosen-single div b {
+                    background: url('@Url.Content("~/Content/chosen-sprite.png")') no-repeat 0px 5px;
+                }
+
+
+            .chosen-container-active.chosen-with-drop .chosen-single div b {
+                background-position: -40px 6px;
+            }
+
+
+            .chosen-container-single .chosen-search input[type="text"] {
+                background: none;
+            }
+
+
+            .jumbotron-example {
+                position: relative;
+                background: url(@Url.Content("~/images/foodbg1.jpg")) center center;
+                width: 100%;
+                /*height: 100%;*/
+                min-height: 400px;
+                background-size: cover;
+                /*overflow: hidden;*/
+            }
+
+            .jumbotron {
+                background-image: url(@Url.Content("~/images/foodbg1.jpg"));
+                color: white;
+                background-attachment: fixed;
+                min-height: 400px;
+                margin-top: 0px;
+                margin-bottom: 8px;
+            }
+
+            .jumbotron-second {
+                background: url(@Url.Content("~/images/banners/Titbit_mobile_app_banner.jpg")) center center;
+                background-size: cover;
+            }
+
+
+
+
+            #bx-pager a.active img {
+                /*border: solid #5280DD 1px;*/
+                border: 1px solid #EE3A45;
+            }
+
+            #bx-pager a img {
+                padding: 3px;
+            }
+
+
+            .thumb {
+                padding: 5px;
+            }
+
+            .thumbnail {
+                padding: 2px;
+                margin-bottom: 10px;
+                /*width: 196px;
+        height: 163px;
+        overflow: auto;*/
+            }
+
+
+            #footer {
+                background-color: #414141;
+                height: 60px;
+                margin-top: 50px;
+                padding-top: 20px;
+                padding-bottom: 20px;
+            }
+
+            .scroll-top {
+                position: fixed;
+                bottom: 0;
+                right: 6%;
+                z-index: 100;
+                background: #f2f3f2;
+                font-size: 24px;
+                border-top-left-radius: 3px;
+                border-top-right-radius: 3px;
+            }
+
+            .back-to-top {
+                cursor: pointer;
+                position: fixed;
+                bottom: 0;
+                right: 20px;
+                display: none;
+                background-color: #EE3A45;
+                border-color: #EE3A45;
+            }
+    </style>
+
+</head>
+<body>
+
+    <!--<div class="container">
+
+
+        <div class="row">
+
+
+            <div class="col-md-7">
+
+            </div>
+        </div>
+    </div>-->
+
+
+    <nav class="navbar navbar-new navbar-fixed-top" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Order Food Online</a>
+                <!--<a class="navbar-brand" href="#"><img src="images/Tauseel-logo-V2.jpg" alt="logo" /></a>-->
+                <!--<a class="navbar-brand" rel="home" href="#" title="Buy Sell Rent Everyting">
+                    <img style="max-width:100px; margin-top: -7px;"
+                         src="images/Tauseel-logo-V2.jpg">
+                </a>-->
+                <!--<a href="#" class="pull-left"><img src="images/Tauseel-logo-V2.jpg"></a>-->
+
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <!--<ul class="nav navbar-nav">
+                    <li class="active"><a href="#">Home</a></li>
+                    <li><a href="#">Page 1</a></li>
+                    <li><a href="#">Page 2</a></li>
+                    <li><a href="#">Page 3</a></li>
+                </ul>-->
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                    <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+
+    <div class="jumbotron">
+        <div class="container">
+            @using (Html.BeginForm("RestaurantList", "Website"))
+            {
+            <div class="row top-space">
+
+
+                <div class="col-md-4 col-md-offset-2">
+
+                    <select name="cuisine" data-placeholder="What do you want to eat ?" class="chosen-select" style="width:350px;" tabindex="2">
+                        <option value=""></option>
+                        @foreach (var cus in ViewBag.Cuisines)
+                        {
+                            <option value="@cus.CuisineID">@cus.Cuisine</option>
+
+                        }
+
+                    </select>
+                </div>
+
+
+                <div class="col-md-4">
+
+                    <select name="location" data-placeholder="Choose your area" class="chosen-select" style="width:350px;" tabindex="2">
+                        <option value=""></option>
+                       
+                        @foreach (var loc in ViewBag.Locations)
+                        {
+                            <option value="@loc.LocationID">@loc.Location</option>
+
+                        }
+                       
+
+
+                    </select>
+                </div>
+
+
+            </div>
+
+
+            <div class="container">
+
+
+                <div class="row">
+
+                    <br />
+                    <br />
+                    <div class="col-md-2 col-md-offset-5">
+
+
+                        <button type="submit" class="btn btn-lg btn-success" style="box-shadow: 0 3px 0 0 rgb(42, 130, 39);">
+                            <i class="fa fa-search"></i>
+                            <span style="font-size: 103%;">Search a restaurant</span>
+
+
+                        </button>
+
+                    </div>
+
+
+                </div>
+
+
+
+
+            </div>
+
+            }
+            
+
+
+
+
+
+
+
+        </div>
+
+
+    </div>
+
+
+    <div class="container">
+
+        <div class="row text-center">
+
+            <div class="col-md-3">
+
+                <i class="fa fa-search" style="font-size: 4em;color: #7D5B51;"></i>
+                <h3 style="color: #EE3A45;font-family: sans-serif;font-style: italic;font-weight: 600;margin-top: 8px;">
+                    Search
+                </h3>
+
+                <p>Find restaurants by selecting your address</p>
+            </div>
+
+            <div class="col-md-3">
+
+                <i class="fa fa-cutlery" style="font-size: 4em;color: #7D5B51;"></i>
+                <h3 style="color: #EE3A45;font-family: sans-serif;font-style: italic;font-weight: 600;margin-top: 8px;">
+                    Choose
+                </h3>
+
+                <p>Browse hundreds of menus to grap the food you like</p>
+            </div>
+
+            <div class="col-md-3">
+
+                <i class="fa fa-money" style="font-size: 4em;color: #7D5B51;"></i>
+                <h3 style="color: #EE3A45;font-family: sans-serif;font-style: italic;font-weight: 600;margin-top: 8px;">
+                    Pay
+                </h3>
+
+                <p>Pay fast & secure , Online or On delivery</p>
+            </div>
+
+
+            <div class="col-md-3">
+
+                <i class="fa fa-smile-o" style="font-size: 4em;color: #7D5B51;"></i>
+                <h3 style="color: #EE3A45;font-family: sans-serif;font-style: italic;font-weight: 600;margin-top: 8px;">
+                    Enjoy
+                </h3>
+
+                <p>Food is prepared and delivered to your door</p>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="container">
+
+        <div class="row">
+
+
+            <div class="col-md-4">
+                <div class="row">
+                    <div class="col-md-6 thumb">
+                        <a class="thumbnail" href="#">
+                            <img class="img-responsive" src="@Url.Content("~/img/home1.jpg")" alt="">
+                        </a>
+                    </div>
+
+                    <div class="col-md-6 thumb">
+                        <a class="thumbnail" href="#">
+                            <img class="img-responsive" src="@Url.Content("~/img/home2.jpg")" alt="">
+                        </a>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 thumb">
+                        <a class="thumbnail" href="#">
+                            <img class="img-responsive" src="@Url.Content("~/img/home4.jpg")" alt="">
+                        </a>
+                    </div>
+                    <div class="col-md-6 thumb">
+                        <a class="thumbnail" href="#">
+                            <img class="img-responsive" src="@Url.Content("~/img/home3.jpg")" alt="">
+                        </a>
+                    </div>
+
+              
+                </div>
+            </div>
+
+
+
+            <!-- Product Images Starts -->
+
+            <div class="col-md-6">
+
+
+
+
+                <ul class="bxslider">
+
+
+                    <li><img src="@Url.Content("~/images/sliders/food1.jpg")" /></li>
+                    <li><img src="@Url.Content("~/images/sliders/food2.jpg")" /></li>
+                    <li><img src="@Url.Content("~/images/sliders/food3.jpg")" /></li>
+                    <li><img src="@Url.Content("~/images/sliders/food4.jpg")" /></li>
+                    <li><img src="@Url.Content("~/images/sliders/food5.jpg")" /></li>
+                </ul>
+
+
+            </div>
+
+
+            <div class="col-md-2">
+
+                <div id="bx-pager">
+
+
+                    <a data-slide-index="0" href=""><img src="@Url.Content("~/images/sliders/sliderthumb/food-1-thumbnail.jpg")" /></a>
+                    <a data-slide-index="1" href=""><img src="@Url.Content("~/images/sliders/sliderthumb/food-2-thumbnail.jpg")" /></a>
+                    <a data-slide-index="2" href=""><img src="@Url.Content("~/images/sliders/sliderthumb/food-3-Thumbnail.jpg")" /></a>
+                    <a data-slide-index="3" href=""><img src="@Url.Content("~/images/sliders/sliderthumb/food-4-thumbnail.jpg")" /></a>
+                    <a data-slide-index="4" href=""><img src="@Url.Content("~/images/sliders/sliderthumb/food-5-thumbnail.jpg")" /></a>
+                </div>
+
+            </div>
+
+            <!-- Product Images Ends -->
+            <!--<div class="col-lg-3 col-md-4 col-xs-6 thumb">
+                <a class="thumbnail" href="#">
+                    <img class="img-responsive" src="http://placehold.it/400x300" alt="">
+                </a>
+            </div>-->
+
+        </div>
+
+
+    </div>
+
+
+    <div class="container">
+
+        <div class="row text-center">
+
+            <h3 style="color: #EE3A45;font-family: sans-serif;font-style: italic;font-weight: 600;margin-top: 8px;">
+                Today's Special
+            </h3>
+
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-7">
+
+                <img src="@Url.Content("~/images/banners/fast-food-banner.jpg")" />
+            </div>
+
+            <div class="col-md-4 col-md-offset-1">
+                <img src="@Url.Content("~/images/sliders/food1.jpg")" style="width: 392px;height: 322px;" />
+            </div>
+
+
+
+
+        </div>
+
+    </div>
+
+
+    <br />
+
+    <div class="container">
+
+
+
+
+        
+
+        <br />
+        
+
+
+
+    </div>
+
+
+    <br />
+
+
+    @*<div class="jumbotron jumbotron-second">
+
+
+        <div class="container" style="margin-top: 177px;">
+
+            <div class="row">
+
+                <div class="col-md-2 col-md-offset-4">
+
+                    <p style="width: 150px;">
+                        <a href="https://itunes.apple.com/us/app/Tauseel/id984011750?mt=8"><img src="@Url.Content("~/images/app-store.jpg")" alt="Tauseel app store" title="Tauseel app store" style="max-width: 100%;max-height: 100%;" class="img-responsive"></a>
+                    </p>
+                    <p style="width: 150px;">
+                        <a href="https://play.google.com/store/apps/details?id=com.Tauseel.app&amp;hl=en"><img src="@Url.Content("~/images/google-play.jpg")" alt="Tauseel google play" title="Tauseel google play" style="max-width: 100%;max-height: 100%;" class="img-responsive"></a>
+                    </p>
+
+                </div>
+            </div>
+
+        </div>
+    </div>*@
+
+
+    <footer class="footer-distributed">
+        <div class="footer-left">
+            <h3>Online<span> food</span></h3>
+            <p class="footer-links">
+                <a href="#">Home</a>
+                ·
+                <a href="#">All Restaurants</a>
+                <!--·
+                <a href="#">Pricing</a>
+                ·
+                <a href="#">About</a>
+                ·
+                <a href="#">Faq</a>
+                ·
+                <a href="#">Contact</a>-->
+            </p>
+            <p class="footer-company-name">Tauseel &copy; 2016</p>
+        </div>
+        <div class="footer-center">
+            <div>
+                <i class="fa fa-map-marker"></i>
+                <p><span>Bahrain</span> Seef</p>
+            </div>
+            <div>
+                <i class="fa fa-phone"></i>
+                <p>17111265</p>
+            </div>
+            <div>
+                <i class="fa fa-envelope"></i>
+                <p><a href="mailto:media@Tauseel.com">media@Tauseel.com</a></p>
+            </div>
+        </div>
+        <div class="footer-right">
+            <p class="footer-company-about">
+                <span>About Tauseel</span>
+                Tauseel is all about spend less save more.
+            </p>
+            <div class="footer-icons">
+                <a href="#"><i class="fa fa-facebook"></i></a>
+                <a href="#"><i class="fa fa-twitter"></i></a>
+                <a href="#"><i class="fa fa-instagram"></i></a>
+            </div>
+        </div>
+    </footer>
+
+
+    <!--<ul class="nav pull-right scroll-top">
+        <li><a href="#" title="Scroll to top"><i class="glyphicon glyphicon-chevron-up"></i></a></li>
+    </ul>-->
+
+    <a id="back-to-top" href="#" class="btn btn-primary btn-lg back-to-top"
+       role="button" title="Back to Top" data-toggle="tooltip" data-placement="top">
+        <span class="glyphicon glyphicon-chevron-up"></span>
+    </a>
+
+    <script src="@Url.Content("~/Scripts/jquery-1.9.1.js")"></script>
+    <script src="@Url.Content("~/Scripts/bootstrap.js")"></script>
+    <script src="@Url.Content("~/Scripts/chosen.jquery.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.bxslider.js")"></script>
+
+    <script type="text/javascript">
+        var config = {
+            '.chosen-select': {},
+            '.chosen-select-deselect': { allow_single_deselect: true },
+            '.chosen-select-no-single': { disable_search_threshold: 10 },
+            '.chosen-select-no-results': { no_results_text: 'Oops, nothing found!' },
+            '.chosen-select-width': { width: "95%" }
+        }
+        for (var selector in config) {
+            $(selector).chosen(config[selector]);
+        }
+
+
+        // Slider
+
+        //$('.bxslider').bxSlider({
+        //    pagerCustom: '#bx-pager'
+        //});
+
+
+        //$('.bxslider').bxSlider({
+        //    pagerCustom: '#bx-pager',
+
+        //    speed: 500,
+        //    auto: true,
+        //    autoHover: true,
+        //    infiniteLoop: false,
+        //    hideControlOnEnd: true
+        //});
+
+        $(document).ready(function (e) {
+            $('.bxslider').bxSlider({
+                pagerCustom: '#bx-pager',
+                auto: true,
+                hideControlOnEnd: true,
+                onSlideAfter: function () {
+                    $('.bx-start').trigger('click');
+                }
+
+            });
+        });
+
+
+
+
+        $(document).ready(function () {
+            $(window).scroll(function () {
+                if ($(this).scrollTop() > 60) {
+                    $('#back-to-top').fadeIn();
+                } else {
+                    $('#back-to-top').fadeOut();
+                }
+            });
+            // scroll body to 0px on click
+            $('#back-to-top').click(function () {
+                $('#back-to-top').tooltip('hide');
+                $('body,html').animate({
+                    scrollTop: 0
+                }, 800);
+                return false;
+            });
+
+            $('#back-to-top').tooltip('show');
+        });
+
+
+    </script>
+
+
+
+</body>
+
+</html>

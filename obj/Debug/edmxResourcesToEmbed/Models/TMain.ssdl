@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TMainModal.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+  <EntityType Name="Customer_T">
+    <Key>
+      <PropertyRef Name="CustomerID" />
+    </Key>
+    <Property Name="CustomerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
+    <Property Name="Email" Type="nvarchar" MaxLength="50" />
+    <Property Name="Password" Type="nchar" MaxLength="10" />
+    <Property Name="Mobile" Type="nchar" MaxLength="20" />
+    <Property Name="Phone" Type="nchar" MaxLength="20" />
+    <Property Name="FlatVilla" Type="nvarchar" MaxLength="50" />
+    <Property Name="Building" Type="nvarchar" MaxLength="50" />
+    <Property Name="Road" Type="nvarchar" MaxLength="50" />
+    <Property Name="Block" Type="nvarchar" MaxLength="50" />
+    <Property Name="Location" Type="nvarchar(max)" />
+    <Property Name="DOC" Type="smalldatetime" />
+    <Property Name="Source" Type="char" MaxLength="10" />
+    <Property Name="CustomerNo" Type="int" />
+  </EntityType>
+  <EntityContainer Name="TMainModalStoreContainer">
+    <EntitySet Name="Customer_T" EntityType="Self.Customer_T" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>

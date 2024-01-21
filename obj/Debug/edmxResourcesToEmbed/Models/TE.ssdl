@@ -1,0 +1,470 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TauseelEatModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'TauseelEat.dbo.Category_T' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Category_T">
+    <Key>
+      <PropertyRef Name="CategoryID" />
+    </Key>
+    <Property Name="CategoryID" Type="int" Nullable="false" />
+    <Property Name="Category" Type="nvarchar(max)" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'TauseelEat.dbo.Cuisine_T' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Cuisine_T">
+    <Key>
+      <PropertyRef Name="CuisineID" />
+    </Key>
+    <Property Name="CuisineID" Type="int" Nullable="false" />
+    <Property Name="Cuisine" Type="nvarchar" MaxLength="150" />
+    <Property Name="SlugCuisine" Type="nvarchar" MaxLength="2083" />
+    <Property Name="MetaTitle" Type="nvarchar" MaxLength="160" />
+    <Property Name="MetaDescription" Type="nvarchar" MaxLength="200" />
+    <Property Name="MetaKeywords" Type="nvarchar" MaxLength="250" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'TauseelEat.dbo.DeliveryPersonLocation_T' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="DeliveryPersonLocation_T">
+    <Key>
+      <PropertyRef Name="DeviceID" />
+    </Key>
+    <Property Name="DeviceID" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Latitude" Type="nvarchar" MaxLength="50" />
+    <Property Name="Longitude" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'TauseelEat.dbo.Location_T' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Location_T">
+    <Key>
+      <PropertyRef Name="LocationID" />
+    </Key>
+    <Property Name="LocationID" Type="int" Nullable="false" />
+    <Property Name="CountryID" Type="int" />
+    <Property Name="CityID" Type="int" />
+    <Property Name="Location" Type="nvarchar(max)" />
+    <Property Name="Group_LocationID" Type="int" />
+  </EntityType>
+  <EntityType Name="Menu_T">
+    <Key>
+      <PropertyRef Name="MenuID" />
+    </Key>
+    <Property Name="MenuID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="MenuTypeID" Type="int" />
+    <Property Name="ShopID" Type="int" />
+    <Property Name="SequenceNo" Type="int" />
+    <Property Name="Menu" Type="nvarchar(max)" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="PriceUponSelection" Type="bit" />
+    <Property Name="Rate" Type="float" />
+    <Property Name="Discount" Type="decimal" Precision="18" Scale="3" />
+    <Property Name="Offer" Type="bit" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'TauseelEat.dbo.Menu-MenuSubItemGroup_T' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Menu-MenuSubItemGroup_T">
+    <Key>
+      <PropertyRef Name="Menu-SubItemGroupID" />
+    </Key>
+    <Property Name="Menu-SubItemGroupID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="MenuID" Type="int" />
+    <Property Name="MenuSubitemGroupID" Type="int" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'TauseelEat.dbo.MenuSubItem_T' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="MenuSubItem_T">
+    <Key>
+      <PropertyRef Name="MenuSubItemID" />
+    </Key>
+    <Property Name="MenuSubItemID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="MenuSubItemGroupID" Type="int" />
+    <Property Name="MenuSubItem" Type="nvarchar" MaxLength="150" />
+    <Property Name="MultipleSelectable" Type="bit" />
+    <Property Name="Paid" Type="bit" />
+    <Property Name="Amount" Type="money" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'TauseelEat.dbo.MenuSubItemGroup_T' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="MenuSubItemGroup_T">
+    <Key>
+      <PropertyRef Name="MenuSubItemGroupID" />
+    </Key>
+    <Property Name="MenuSubItemGroupID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="ShopID" Type="int" />
+    <Property Name="MenuSubItemGroup" Type="nvarchar" MaxLength="250" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'TauseelEat.dbo.MenuType_T' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="MenuType_T">
+    <Key>
+      <PropertyRef Name="MenuTypeID" />
+    </Key>
+    <Property Name="MenuTypeID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="ShopID" Type="int" />
+    <Property Name="MenuType" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'TauseelEat.dbo.Order_T' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Order_T">
+    <Key>
+      <PropertyRef Name="OrderID" />
+    </Key>
+    <Property Name="OrderID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="OrderDate" Type="smalldatetime" />
+    <Property Name="StoreID" Type="int" />
+    <Property Name="CustomerID" Type="int" />
+    <Property Name="DeliveryAdvice" Type="ntext" />
+    <Property Name="CurrentStatusID" Type="int" />
+    <Property Name="GrossAmount" Type="numeric" Precision="6" Scale="3" />
+    <Property Name="DeliveryCharge" Type="numeric" Precision="6" Scale="3" />
+    <Property Name="Discount" Type="numeric" Precision="6" Scale="3" />
+    <Property Name="CustAddress" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'TauseelEat.dbo.OrderDetail_T' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="OrderDetail_T">
+    <Key>
+      <PropertyRef Name="OrderDetailID" />
+    </Key>
+    <Property Name="OrderDetailID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="OrderID" Type="int" />
+    <Property Name="Menu" Type="nvarchar(max)" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="Position" Type="int" />
+    <Property Name="Amount" Type="money" />
+    <Property Name="Quantity" Type="int" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'TauseelEat.dbo.Rating_T' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Rating_T">
+    <Key>
+      <PropertyRef Name="RatingID" />
+    </Key>
+    <Property Name="RatingID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="CustomerID" Type="int" />
+    <Property Name="Rating" Type="nchar" MaxLength="10" />
+    <Property Name="Feedback" Type="ntext" />
+    <Property Name="DOC" Type="smalldatetime" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'TauseelEat.dbo.ResCustomer_T' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="ResCustomer_T">
+    <Key>
+      <PropertyRef Name="CustomerID" />
+    </Key>
+    <Property Name="CustomerID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
+    <Property Name="Email" Type="nvarchar" MaxLength="50" />
+    <Property Name="Password" Type="nchar" MaxLength="10" />
+    <Property Name="Mobile" Type="nchar" MaxLength="20" />
+    <Property Name="Phone" Type="nchar" MaxLength="20" />
+    <Property Name="FlatVilla" Type="nvarchar" MaxLength="50" />
+    <Property Name="Building" Type="nvarchar" MaxLength="50" />
+    <Property Name="Road" Type="nvarchar" MaxLength="50" />
+    <Property Name="Block" Type="nvarchar" MaxLength="50" />
+    <Property Name="Location" Type="nvarchar(max)" />
+    <Property Name="DOC" Type="smalldatetime" />
+    <Property Name="Landmark" Type="nvarchar(max)" />
+    <Property Name="MainCustomerID" Type="int" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'TauseelEat.dbo.Rider_T' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Rider_T">
+    <Key>
+      <PropertyRef Name="RID" />
+    </Key>
+    <Property Name="RID" Type="int" Nullable="false" />
+    <Property Name="RFName" Type="nvarchar" MaxLength="50" />
+    <Property Name="RLName" Type="nvarchar" MaxLength="50" />
+    <Property Name="REmailAddress" Type="nvarchar" MaxLength="50" />
+    <Property Name="RMobileType" Type="nvarchar" MaxLength="50" />
+    <Property Name="RContactNo" Type="nvarchar" MaxLength="11" />
+    <Property Name="RAddress" Type="nvarchar" MaxLength="255" />
+    <Property Name="RIDProofType" Type="nvarchar" MaxLength="50" />
+    <Property Name="RIDProofNo" Type="nvarchar" MaxLength="50" />
+    <Property Name="RVehicleType" Type="nvarchar" MaxLength="50" />
+    <Property Name="RVehicleRegistrationNo" Type="nvarchar" MaxLength="50" />
+    <Property Name="RDrivingLicenseNo" Type="nvarchar" MaxLength="50" />
+    <Property Name="RRegistrationDate" Type="datetime" />
+    <Property Name="RLastSync" Type="datetime" />
+    <Property Name="RUserDeviceRegId" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'TauseelEat.dbo.Shop_T' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Shop_T">
+    <Key>
+      <PropertyRef Name="ShopID" />
+    </Key>
+    <Property Name="ShopID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="ShopName" Type="nvarchar(max)" />
+    <Property Name="Logo" Type="nvarchar(max)" />
+    <Property Name="HeaderPic" Type="nvarchar(max)" />
+    <Property Name="Userid" Type="nvarchar" MaxLength="50" />
+    <Property Name="Password" Type="nvarchar" MaxLength="50" />
+    <Property Name="MinOrder" Type="decimal" Precision="18" Scale="3" />
+    <Property Name="Active" Type="bit" />
+    <Property Name="DeliveryCharge" Type="decimal" Precision="18" Scale="3" />
+    <Property Name="CurrentStatus" Type="int" />
+    <Property Name="Branch" Type="bit" />
+    <Property Name="MainShopID" Type="int" />
+    <Property Name="PhoneNo" Type="nvarchar" MaxLength="50" />
+    <Property Name="Address" Type="ntext" />
+    <Property Name="Lattitude" Type="nvarchar" MaxLength="50" />
+    <Property Name="Longitude" Type="nvarchar" MaxLength="50" />
+    <Property Name="HasOffers" Type="bit" />
+    <Property Name="Discount" Type="numeric" Precision="6" Scale="3" />
+    <Property Name="DeliveryTime" Type="nvarchar" MaxLength="50" />
+    <Property Name="AcceptsCash" Type="bit" />
+    <Property Name="AcceptsCard" Type="bit" />
+    <Property Name="DOC" Type="smalldatetime" />
+    <Property Name="resttype" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'TauseelEat.dbo.ShopCuisine_T' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="ShopCuisine_T">
+    <Key>
+      <PropertyRef Name="ShopCuisine" />
+    </Key>
+    <Property Name="ShopCuisine" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="ShopID" Type="int" />
+    <Property Name="CuisineID" Type="int" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'TauseelEat.dbo.ShopLocation_T' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="ShopLocation_T">
+    <Key>
+      <PropertyRef Name="ShopLocationID" />
+    </Key>
+    <Property Name="ShopLocationID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="ShopID" Type="int" />
+    <Property Name="LocationID" Type="int" />
+    <Property Name="LocDeliveryCharge" Type="decimal" Precision="18" Scale="3" />
+    <Property Name="LocDeliveryTime" Type="nvarchar" MaxLength="50" />
+    <Property Name="LocMinOrder" Type="decimal" Precision="18" Scale="3" />
+  </EntityType>
+  <EntityType Name="ShopMapping_T">
+    <Key>
+      <PropertyRef Name="ShopID" />
+      <PropertyRef Name="MainShopID" />
+    </Key>
+    <Property Name="ShopID" Type="int" Nullable="false" />
+    <Property Name="MainShopID" Type="int" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'TauseelEat.dbo.ShopTiming_T' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="ShopTiming_T">
+    <Key>
+      <PropertyRef Name="ShopTimingID" />
+    </Key>
+    <Property Name="ShopTimingID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="ShopID" Type="int" />
+    <Property Name="Day" Type="nchar" MaxLength="3" />
+    <Property Name="StartTime" Type="time" Precision="7" />
+    <Property Name="EndTime" Type="time" Precision="7" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'TauseelEat.dbo.Status_T' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Status_T">
+    <Key>
+      <PropertyRef Name="StatusID" />
+    </Key>
+    <Property Name="StatusID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Status" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityContainer Name="TauseelEatModelStoreContainer">
+    <EntitySet Name="Menu_T" EntityType="Self.Menu_T" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ShopMapping_T" EntityType="Self.ShopMapping_T" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Category_T" EntityType="Self.Category_T" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+[Category_T].[CategoryID] AS [CategoryID], 
+[Category_T].[Category] AS [Category]
+FROM [dbo].[Category_T] AS [Category_T]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="Cuisine_T" EntityType="Self.Cuisine_T" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+[Cuisine_T].[CuisineID] AS [CuisineID], 
+[Cuisine_T].[Cuisine] AS [Cuisine], 
+[Cuisine_T].[SlugCuisine] AS [SlugCuisine], 
+[Cuisine_T].[MetaTitle] AS [MetaTitle], 
+[Cuisine_T].[MetaDescription] AS [MetaDescription], 
+[Cuisine_T].[MetaKeywords] AS [MetaKeywords]
+FROM [dbo].[Cuisine_T] AS [Cuisine_T]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="DeliveryPersonLocation_T" EntityType="Self.DeliveryPersonLocation_T" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+[DeliveryPersonLocation_T].[DeviceID] AS [DeviceID], 
+[DeliveryPersonLocation_T].[Latitude] AS [Latitude], 
+[DeliveryPersonLocation_T].[Longitude] AS [Longitude]
+FROM [dbo].[DeliveryPersonLocation_T] AS [DeliveryPersonLocation_T]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="Location_T" EntityType="Self.Location_T" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+[Location_T].[LocationID] AS [LocationID], 
+[Location_T].[CountryID] AS [CountryID], 
+[Location_T].[CityID] AS [CityID], 
+[Location_T].[Location] AS [Location], 
+[Location_T].[Group_LocationID] AS [Group_LocationID]
+FROM [dbo].[Location_T] AS [Location_T]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="Menu-MenuSubItemGroup_T" EntityType="Self.Menu-MenuSubItemGroup_T" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+[Menu-MenuSubItemGroup_T].[Menu-SubItemGroupID] AS [Menu-SubItemGroupID], 
+[Menu-MenuSubItemGroup_T].[MenuID] AS [MenuID], 
+[Menu-MenuSubItemGroup_T].[MenuSubitemGroupID] AS [MenuSubitemGroupID]
+FROM [dbo].[Menu-MenuSubItemGroup_T] AS [Menu-MenuSubItemGroup_T]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="MenuSubItem_T" EntityType="Self.MenuSubItem_T" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+[MenuSubItem_T].[MenuSubItemID] AS [MenuSubItemID], 
+[MenuSubItem_T].[MenuSubItemGroupID] AS [MenuSubItemGroupID], 
+[MenuSubItem_T].[MenuSubItem] AS [MenuSubItem], 
+[MenuSubItem_T].[MultipleSelectable] AS [MultipleSelectable], 
+[MenuSubItem_T].[Paid] AS [Paid], 
+[MenuSubItem_T].[Amount] AS [Amount]
+FROM [dbo].[MenuSubItem_T] AS [MenuSubItem_T]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="MenuSubItemGroup_T" EntityType="Self.MenuSubItemGroup_T" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+[MenuSubItemGroup_T].[MenuSubItemGroupID] AS [MenuSubItemGroupID], 
+[MenuSubItemGroup_T].[ShopID] AS [ShopID], 
+[MenuSubItemGroup_T].[MenuSubItemGroup] AS [MenuSubItemGroup]
+FROM [dbo].[MenuSubItemGroup_T] AS [MenuSubItemGroup_T]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="MenuType_T" EntityType="Self.MenuType_T" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+[MenuType_T].[MenuTypeID] AS [MenuTypeID], 
+[MenuType_T].[ShopID] AS [ShopID], 
+[MenuType_T].[MenuType] AS [MenuType]
+FROM [dbo].[MenuType_T] AS [MenuType_T]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="Order_T" EntityType="Self.Order_T" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+[Order_T].[OrderID] AS [OrderID], 
+[Order_T].[OrderDate] AS [OrderDate], 
+[Order_T].[StoreID] AS [StoreID], 
+[Order_T].[CustomerID] AS [CustomerID], 
+[Order_T].[DeliveryAdvice] AS [DeliveryAdvice], 
+[Order_T].[CurrentStatusID] AS [CurrentStatusID], 
+[Order_T].[GrossAmount] AS [GrossAmount], 
+[Order_T].[DeliveryCharge] AS [DeliveryCharge], 
+[Order_T].[Discount] AS [Discount], 
+[Order_T].[CustAddress] AS [CustAddress]
+FROM [dbo].[Order_T] AS [Order_T]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="OrderDetail_T" EntityType="Self.OrderDetail_T" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+[OrderDetail_T].[OrderDetailID] AS [OrderDetailID], 
+[OrderDetail_T].[OrderID] AS [OrderID], 
+[OrderDetail_T].[Menu] AS [Menu], 
+[OrderDetail_T].[Description] AS [Description], 
+[OrderDetail_T].[Position] AS [Position], 
+[OrderDetail_T].[Amount] AS [Amount], 
+[OrderDetail_T].[Quantity] AS [Quantity]
+FROM [dbo].[OrderDetail_T] AS [OrderDetail_T]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="Rating_T" EntityType="Self.Rating_T" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+[Rating_T].[RatingID] AS [RatingID], 
+[Rating_T].[CustomerID] AS [CustomerID], 
+[Rating_T].[Rating] AS [Rating], 
+[Rating_T].[Feedback] AS [Feedback], 
+[Rating_T].[DOC] AS [DOC]
+FROM [dbo].[Rating_T] AS [Rating_T]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="ResCustomer_T" EntityType="Self.ResCustomer_T" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+[ResCustomer_T].[CustomerID] AS [CustomerID], 
+[ResCustomer_T].[Name] AS [Name], 
+[ResCustomer_T].[Email] AS [Email], 
+[ResCustomer_T].[Password] AS [Password], 
+[ResCustomer_T].[Mobile] AS [Mobile], 
+[ResCustomer_T].[Phone] AS [Phone], 
+[ResCustomer_T].[FlatVilla] AS [FlatVilla], 
+[ResCustomer_T].[Building] AS [Building], 
+[ResCustomer_T].[Road] AS [Road], 
+[ResCustomer_T].[Block] AS [Block], 
+[ResCustomer_T].[Location] AS [Location], 
+[ResCustomer_T].[DOC] AS [DOC], 
+[ResCustomer_T].[Landmark] AS [Landmark], 
+[ResCustomer_T].[MainCustomerID] AS [MainCustomerID]
+FROM [dbo].[ResCustomer_T] AS [ResCustomer_T]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="Rider_T" EntityType="Self.Rider_T" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+[Rider_T].[RID] AS [RID], 
+[Rider_T].[RFName] AS [RFName], 
+[Rider_T].[RLName] AS [RLName], 
+[Rider_T].[REmailAddress] AS [REmailAddress], 
+[Rider_T].[RMobileType] AS [RMobileType], 
+[Rider_T].[RContactNo] AS [RContactNo], 
+[Rider_T].[RAddress] AS [RAddress], 
+[Rider_T].[RIDProofType] AS [RIDProofType], 
+[Rider_T].[RIDProofNo] AS [RIDProofNo], 
+[Rider_T].[RVehicleType] AS [RVehicleType], 
+[Rider_T].[RVehicleRegistrationNo] AS [RVehicleRegistrationNo], 
+[Rider_T].[RDrivingLicenseNo] AS [RDrivingLicenseNo], 
+[Rider_T].[RRegistrationDate] AS [RRegistrationDate], 
+[Rider_T].[RLastSync] AS [RLastSync], 
+[Rider_T].[RUserDeviceRegId] AS [RUserDeviceRegId]
+FROM [dbo].[Rider_T] AS [Rider_T]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="Shop_T" EntityType="Self.Shop_T" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+[Shop_T].[ShopID] AS [ShopID], 
+[Shop_T].[ShopName] AS [ShopName], 
+[Shop_T].[Logo] AS [Logo], 
+[Shop_T].[HeaderPic] AS [HeaderPic], 
+[Shop_T].[Userid] AS [Userid], 
+[Shop_T].[Password] AS [Password], 
+[Shop_T].[MinOrder] AS [MinOrder], 
+[Shop_T].[Active] AS [Active], 
+[Shop_T].[DeliveryCharge] AS [DeliveryCharge], 
+[Shop_T].[CurrentStatus] AS [CurrentStatus], 
+[Shop_T].[Branch] AS [Branch], 
+[Shop_T].[MainShopID] AS [MainShopID], 
+[Shop_T].[PhoneNo] AS [PhoneNo], 
+[Shop_T].[Address] AS [Address], 
+[Shop_T].[Lattitude] AS [Lattitude], 
+[Shop_T].[Longitude] AS [Longitude], 
+[Shop_T].[HasOffers] AS [HasOffers], 
+[Shop_T].[Discount] AS [Discount], 
+[Shop_T].[DeliveryTime] AS [DeliveryTime], 
+[Shop_T].[AcceptsCash] AS [AcceptsCash], 
+[Shop_T].[AcceptsCard] AS [AcceptsCard], 
+[Shop_T].[DOC] AS [DOC], 
+[Shop_T].[resttype] AS [resttype]
+FROM [dbo].[Shop_T] AS [Shop_T]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="ShopCuisine_T" EntityType="Self.ShopCuisine_T" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+[ShopCuisine_T].[ShopCuisine] AS [ShopCuisine], 
+[ShopCuisine_T].[ShopID] AS [ShopID], 
+[ShopCuisine_T].[CuisineID] AS [CuisineID]
+FROM [dbo].[ShopCuisine_T] AS [ShopCuisine_T]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="ShopLocation_T" EntityType="Self.ShopLocation_T" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+[ShopLocation_T].[ShopLocationID] AS [ShopLocationID], 
+[ShopLocation_T].[ShopID] AS [ShopID], 
+[ShopLocation_T].[LocationID] AS [LocationID], 
+[ShopLocation_T].[LocDeliveryCharge] AS [LocDeliveryCharge], 
+[ShopLocation_T].[LocDeliveryTime] AS [LocDeliveryTime], 
+[ShopLocation_T].[LocMinOrder] AS [LocMinOrder]
+FROM [dbo].[ShopLocation_T] AS [ShopLocation_T]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="ShopTiming_T" EntityType="Self.ShopTiming_T" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+[ShopTiming_T].[ShopTimingID] AS [ShopTimingID], 
+[ShopTiming_T].[ShopID] AS [ShopID], 
+[ShopTiming_T].[Day] AS [Day], 
+[ShopTiming_T].[StartTime] AS [StartTime], 
+[ShopTiming_T].[EndTime] AS [EndTime]
+FROM [dbo].[ShopTiming_T] AS [ShopTiming_T]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="Status_T" EntityType="Self.Status_T" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+[Status_T].[StatusID] AS [StatusID], 
+[Status_T].[Status] AS [Status]
+FROM [dbo].[Status_T] AS [Status_T]</DefiningQuery>
+    </EntitySet>
+  </EntityContainer>
+</Schema>

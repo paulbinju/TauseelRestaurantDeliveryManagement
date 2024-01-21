@@ -1,0 +1,613 @@
+﻿<style>
+    .modal-lg {
+        width: 98%;
+    }
+</style>
+
+
+
+<script src="~/js/jquery-1.8.3.min.js"></script>
+<div class="container-fluid">
+    <div class="page-content">
+        <div class="row" style="min-height:850px;">
+            <div class="col-md-12">
+                <div class="col-lg-12" style="background-color:white;min-height:1000px">
+                    <div class="col-md-12" style="overflow:hidden">
+                        <a class="btn btn-success pull-right" data-toggle="modal" href="#logoHeader">
+                            Add / Update Header Pic
+                        </a>
+                        @foreach (var shop in ViewBag.Shops)
+                        {
+                            <img class="img-responsive" style="height:300px;" src="@Url.Content("~/shopheader/")@shop.ShopID-@shop.HeaderPic" />
+                        }
+
+                    </div>
+                    <br style="clear:both" />
+                    <hr />
+                    <br style="clear:both" />
+
+                    <div class="col-md-2 fa-border" style="min-height:100px;text-align:center">
+                        <div class="col-lg-push-6">
+                            @foreach (var shop in ViewBag.Shops)
+                            {
+                                <img style="width:150px;" src="@Url.Content("~/ShopLogos/")@shop.ShopID-@shop.Logo" />
+                            }
+
+                        </div>
+
+                        <a class="btn btn-success" data-toggle="modal" href="#logoModal">
+                            Add / Update Logo
+                        </a>
+
+                    </div>
+
+
+                    <script>
+                        $(document).ready(function () {
+                            $("#addform").hide();
+                            $("#add").click(function () {
+                                $("#addform").show(2000);
+                            });
+
+                            $("#close").click(function () {
+                                $("#addform").hide(2000);
+                            });
+                        });
+
+                    </script>
+
+
+                    <div class="col-md-10">
+                        <a id="add" class="btn btn-danger  pull-right" href="#">
+                            Add / Update Details
+                        </a>
+                        <br class="clear:both" />
+
+                        <div class="col-md-12">
+                            @foreach (var shop in ViewBag.Shops)
+                            {
+                                <div class="col-md-4">
+                                    <b>Restaurant: </b>
+                                    @shop.ShopName
+                                </div>
+                                <div class="col-md-4">
+                                    <b>Discount: </b>
+                                    @shop.Discount %
+                                </div>
+                                <div class="col-md-4">
+                                    <b>Active: </b>
+                                    @(shop.Active ? "Yes" : "No")
+                                </div>
+
+
+                                <div class="col-md-4">
+                                    <b>Minimum Order: </b>
+                                    @shop.MinOrder
+                                </div>                            <div class="col-md-4">
+                                    <b>Delivery Charge</b>:BD @shop.DeliveryCharge
+                                </div>
+                                <div class="col-md-4">
+                                    <b>Has Offers: </b>
+                                    @(shop.HasOffers ? "Yes" : "No")
+                                </div>
+                                <div class="col-md-4">
+                                    <b>Email ID: </b>
+                                    @shop.Userid
+
+                                </div>
+                                <div class="col-md-4">
+                                    <b>Password: </b>@shop.Password
+                                </div>
+
+
+                                <div class="col-md-4">
+                                    <b>Current Status : </b>@{
+                                        string currentstatus = "";
+                                        if (shop.CurrentStatus == 0)
+                                        {
+                                            currentstatus = "Open";
+
+                                        }
+                                        else if (shop.CurrentStatus == 1)
+                                        {
+                                            currentstatus = "Busy";
+                                        }
+                                        else if (shop.CurrentStatus == 2)
+                                        {
+                                            currentstatus = "Closed";
+                                        }
+
+                                    }
+                                    @currentstatus
+                                </div>
+
+                                <div class="col-md-4">
+                                    <b>Delivery Time: </b>@shop.DeliveryTime
+                                </div>
+
+                                <div class="col-md-4">
+                                    <b>Accepts Cash: </b>@(shop.AcceptsCash ? "Yes" : "No")
+                                </div>
+                                <div class="col-md-4">
+                                    <b>Accepts Card: </b>@(shop.AcceptsCard ? "Yes" : "No")
+                                </div>
+                                <div class="col-md-4">
+                                    <b>Location: </b> @shop.Address
+                                </div>
+                                        }
+                        </div>
+                        <br class="clear:both" />
+                        <br class="clear:both" />
+                        <br class="clear:both" />
+                        <div class="col-md-12" id="addform" style="height:240px; width:100%;padding:25px; background-color:#efefef ">
+                            
+                            @foreach (var shop in ViewBag.Shops)
+                            {
+                                using (Html.BeginForm("MainItems", "Shop"))
+                                {
+                                    <div class="col-md-4">
+
+                                        <b>Restaurant</b>
+                                        <input type="text" name="ShopName" value="@shop.ShopName" class="col-md-12 form-control" />
+                                    </div>
+                                    <div class="col-md-3">
+
+                                        <b>Discount</b>
+                                        <input type="text" name="Discount" value="@shop.Discount" class="col-md-12 form-control" /> %
+                                    </div>
+                                    <div class="col-md-2">
+                                        <b>Active</b>
+                                        <br style="clear:both" />
+
+                                        <input type="radio" name="active" value="1" @(shop.Active ? "checked" : "") /> Yes &nbsp;&nbsp;<input type="radio" name="active" value="0" @(!shop.Active ? "checked" : "") /> No
+
+
+                                    </div>
+                                    <div class="col-md-3 pull-right">
+
+                                        <b>Current Status</b>
+                                        <select class="form-control" name="CurrentStatus">
+                                            <option @(shop.CurrentStatus == 0 ? "selected" : "") value="0">Open</option>
+                                            <option @(shop.CurrentStatus == 1 ? "selected" : "") value="1">Busy</option>
+                                            <option @(shop.CurrentStatus == 2 ? "selected" : "") value="2">Closed</option>
+                                        </select>
+
+                                    </div>
+
+                                    <br style="clear:both" />
+                                    <br />
+
+                                    <div class="col-md-2">
+
+                                        <b>Minimum Order</b>
+                                        <input type="number" step="0.01" name="MinOrder" value="@shop.MinOrder" class="col-md-12 form-control" />
+
+                                    </div>
+
+                                    <div class="col-md-2">
+
+                                        <b>Delivery Charge</b>
+                                        <input type="number" step="0.01" name="deliverycharge" value="@shop.DeliveryCharge" class="col-md-12 form-control" />
+
+                                    </div>
+                                    <div class="col-md-2">
+
+                                        <b>Delivery Time</b>
+                                        <input type="text" name="deliverytime" value="@shop.DeliveryTime" class="col-md-12 form-control" />
+
+                                    </div>
+
+                                    <div class="col-md-2">
+
+                                        <b>Has Offers</b>
+                                        <select name="HasOffers" class="form-control">
+                                            <option @(shop.HasOffers == true ? "selected" : "") value="1">Yes</option>
+                                            <option @(shop.HasOffers == false ? "selected" : "") value="0">No</option>
+
+                                        </select>
+
+                                    </div>
+                                    <div class="col-md-2">
+                                        <b>Accepts Cash</b>
+                                        <br style="clear:both" />
+                                        <input type="radio" name="AcceptsCash" value="1" @(shop.AcceptsCash ? "checked" : "") /> Yes &nbsp;&nbsp;<input type="radio" name="AcceptsCash" value="0" @(!shop.AcceptsCash ? "checked" : "") /> No
+                                    </div>
+                                    <div class="col-md-2">
+                                        <b>Accepts Card</b>
+                                        <br style="clear:both" />
+                                        <input type="radio" name="AcceptsCard" value="1" @(shop.AcceptsCard ? "checked" : "") /> Yes &nbsp;&nbsp;<input type="radio" name="AcceptsCard" value="0" @(!shop.AcceptsCard ? "checked" : "") /> No
+                                    </div>
+
+
+                                    <br style="clear:both" />
+                                    <br />
+                                    <div class="col-md-3">
+
+                                        <b>Location</b><br style="clear:both" />
+                                        <input type="text" name="Address" class="form-control" value="@shop.Address" />
+
+                                    </div>
+                                    <div class="col-md-3">
+
+                                        <b>Email ID</b><br style="clear:both" />
+                                        <input type="email" name="Userid" class="form-control" value="@shop.Userid" />
+
+                                    </div>
+                                    <div class="col-md-3">
+
+                                        <b>Password</b><br style="clear:both" />
+                                        <input type="text" name="Password" class="form-control" value="@shop.Password" />
+                                    </div>
+
+
+                                    <div class="col-md-3">
+                                        <br />
+                                        <input type="hidden" value="@shop.ShopID" name="ShopID" />
+                                        <input type="submit" class="btn btn-danger" value="Save" />
+                                        <input type="button" class="btn btn-warning" id="close" value="Cancel" />
+                                    </div>
+
+                                }
+
+                            }
+                        </div>
+
+                    </div>
+
+
+
+
+                    <br style="clear:both" />
+                    <br style="clear:both" /><hr />
+                    <br style="clear:both" />
+
+                    <div class="col-md-4 table-bordered">
+                        <br style="clear:both" />
+
+
+                        <a class="btn-sm btn-success  pull-right" data-toggle="modal" href="#timingsModal">
+                            Add / Update Timings
+                        </a>
+                        <br style="clear:both" />
+                        <br style="clear:both" />
+                        @foreach (var tim in ViewBag.Timings)
+                        {
+
+                            <div class="col-md-4">@tim.Day -</div><div class="col-md-4">@tim.StartTime  -</div><div class="col-md-4"> @tim.EndTime</div>
+                        }
+                        <br style="clear:both" />
+                        <br style="clear:both" />
+
+                    </div>
+
+                    <div class="col-md-7 table-bordered pull-right">
+                        <br style="clear:both" />
+
+
+                        <b>Cuisine</b><br style="clear:both" />
+
+                        <div class="col-md-9">
+
+                            @foreach (var cus in ViewBag.Showcuisines)
+                            {
+                                <div class="col-md-3">@cus.CuisineName</div>
+
+                            }
+                        </div>
+                        <div class="col-md-2">
+                            <a class="btn btn-success" data-toggle="modal" href="#cuisineModal">
+                                Add / Update Cuisine
+                            </a>
+                        </div>
+                        <br />
+                        <br style="clear:both" />
+                        <br />
+                        <br />
+
+                    </div>
+                    <div class="col-md-7 table-bordered pull-right">
+                        <br style="clear:both" />
+
+
+                        <b>Menu Mapping</b><br style="clear:both" />
+
+                        <div class="col-md-9">
+
+                            @foreach (var mshop in ViewBag.AllShops)
+                            {
+                                if (mshop.ShopID == ViewBag.MappedShop)
+                                {
+                                    <div><br>Menu of this shop is mapped to : @mshop.ShopName (@mshop.ShopID)</div>
+                                }
+                            }
+                        </div>
+                        <div class="col-md-2">
+                            <a class="btn btn-danger" data-toggle="modal" href="#ShopMapModel">
+                                Add / Update Menu Mapping
+                            </a>
+                        </div>
+                        <br />
+                        <br style="clear:both" />
+                        <br />
+                        <br />
+
+                    </div>
+                    <br style="clear:both" />
+                    <br style="clear:both" /><hr />
+                    <br style="clear:both" />
+                    <div class="col-md-9">
+                        <b>Locations</b><br style="clear:both" />
+
+                        <div class="col-md-9 ">
+                            @foreach (var loc in ViewBag.Showlocations)
+                            {
+                                <div class="col-md-3">@loc.LocationName</div>
+
+                            }
+                            <br style="clear:both" />
+                        </div>
+
+                        <div class="col-md-3">
+                            <a class="btn btn-warning  pull-right" data-toggle="modal" href="#locationsModal">
+                                Add / Update Locations
+                            </a>
+                        </div>
+
+
+
+
+                        <br />
+                        <br class="clear:both" />
+                        <br />
+
+
+                    </div>
+
+
+
+
+                    <br style="clear:both" />
+                    <br class="clear:both" />
+                    <hr />
+
+
+                </div>
+
+                <div class="modal fade modal-dialog-center" id="logoHeader" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content-wrap">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                    <h4 class="modal-title">Add / Update Header</h4>
+                                </div>
+                                @using (Html.BeginForm("EditHeader", "Shop", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                                {
+                                    <div class="modal-body">
+
+                                        Select  Header <span style="font-size:10px;">(1400 pixels width X 470 pixels height - .jpg format)</span><br /><br />
+                                        <input type="file" name="pic" />
+                                        <input type="hidden" name="ShopID" value="@ViewBag.ShopID" /><br />
+                                    </div>
+
+                                    <div class="modal-footer">
+                                        <button data-dismiss="modal" class="btn btn-default" type="button">Close</button>
+                                        <input type="submit" class="btn btn-warning" value="Confirm" />
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal fade modal-dialog-center" id="logoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content-wrap">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                    <h4 class="modal-title">Add / Update Logo</h4>
+                                </div>
+                                @using (Html.BeginForm("EditLogo", "Shop", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                                {
+                                    <div class="modal-body">
+
+                                        Select  Logo <span style="font-size:10px;">(500 pixels width X 400 pixels height - .jpg format)</span><br /><br />
+                                        <input type="file" name="pic" />
+                                        <input type="hidden" name="ShopID" value="@ViewBag.ShopID" /><br />
+                                    </div>
+
+                                    <div class="modal-footer">
+                                        <button data-dismiss="modal" class="btn btn-default" type="button">Close</button>
+                                        <input type="submit" class="btn btn-warning" value="Confirm" />
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal fade modal-dialog-center" id="locationsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content-wrap">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                    <h4 class="modal-title">Add / Update Locations</h4>
+                                </div>
+                                @using (Html.BeginForm("AddLocations", "Shop"))
+                                {
+                                    <div class="modal-body">
+
+                                        @foreach (var loc in ViewBag.locations)
+                                        {
+                                            int flagloc = 0;
+                                            foreach (var sloc in ViewBag.Showlocations)
+                                            {
+                                                if (sloc.LocationID == loc.LocationID)
+                                                {
+                                                    flagloc = 1;
+                                                    <div class="col-md-6" style="border-bottom:1px solid #ccc;margin-bottom:5px;padding-bottom:5px;">
+
+                                                        <div class="col-md-3"><input type="checkbox" name="location" checked value="@loc.LocationID" /> @loc.Location</div>
+                                                        <div class="col-md-3"><input name="LocDeliveryCharge-@loc.LocationID" value="@sloc.LocDeliveryCharge" placeholder="Delivery Charge" type="text" class="form-control" /></div>
+                                                        <div class="col-md-3"><input name="LocDeliveryTime-@loc.LocationID" value="@sloc.LocDeliveryTime" placeholder="Delivery Time" type="text" class="form-control" /></div>
+                                                        <div class="col-md-3"><input name="LocMinOrder-@loc.LocationID" value="@sloc.LocMinOrder" placeholder="Min.Order" type="text" class="form-control" /></div>
+                                                    </div>
+                                                }
+
+                                            }
+
+                                            if (flagloc == 0)
+                                            {
+
+                                                <div class="col-md-6" style="border-bottom:1px solid #ccc;margin-bottom:5px;padding-bottom:5px;">
+                                                    <div class="col-md-3"><input type="checkbox" name="location" value="@loc.LocationID" /> @loc.Location</div>
+                                                    <div class="col-md-3"><input name="LocDeliveryCharge-@loc.LocationID" placeholder="Delivery Charge" type="text" class="form-control" /></div>
+                                                    <div class="col-md-3"><input name="LocDeliveryTime-@loc.LocationID" placeholder="Delivery Time" type="text" class="form-control" /></div>
+                                                    <div class="col-md-3"><input name="LocMinOrder-@loc.LocationID" placeholder="Min.Order" type="text" class="form-control" /></div>
+                                                </div>
+                                            }
+
+                                            flagloc = 1;
+                                            
+                                        }
+
+                                    </div><br style="clear:both" />
+                                    <div class="modal-footer">
+                                        <button data-dismiss="modal" class="btn btn-default" type="button">Close</button>
+                                        <button class="btn btn-warning" type="submit"> Confirm</button>
+                                    </div>
+                                    <input type="hidden" name="ShopID" value="@ViewBag.ShopID" />
+
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="modal fade modal-dialog-center" id="ShopMapModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content-wrap">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                    <h4 class="modal-title">Add / Update Menu Mapping</h4>
+                                    <ul>
+                                        <li>If this is the Main shop, select the same shop from the list.</li>
+                                        <li>If this is a branch or another shop of same group, select the main shop from list.</li>
+                                    </ul>
+                                </div>
+
+                                @using (Html.BeginForm("MapShops", "Shop"))
+                                {
+                                     
+                                    <div class="modal-body">
+                                        <select class="form-control" name="mainshopid">
+
+                                            @foreach (var shop in ViewBag.AllShops)
+                                            {
+                                                <option value="@shop.ShopID">@shop.ShopName (@shop.ShopID)</option>
+                                    
+                                            }
+                                        </select>
+                                    </div><br style="clear:both" />
+                                    <div class="modal-footer">
+                                        <button data-dismiss="modal" class="btn btn-default" type="button">Close</button>
+                                        <button class="btn btn-warning" type="submit"> Confirm</button>
+                                        <input type="hidden" name="ShopID" value="@ViewBag.ShopID" />
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="modal fade modal-dialog-center" id="cuisineModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content-wrap">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                    <h4 class="modal-title">Add / Update Cuisine</h4>
+                                </div>
+
+                                @using (Html.BeginForm("AddCuisines", "Shop"))
+                                {
+                                    int flagcus = 0;
+                                    <div class="modal-body">
+
+                                        @foreach (var cus in ViewBag.cuisine)
+                                        {
+
+                                            foreach (var scus in ViewBag.Showcuisines)
+                                            {
+                                                if (scus.CuisineID == cus.CuisineID)
+                                                {
+                                                    flagcus = 1;
+                                                    <div class="col-md-3"><input type="checkbox" name="cuisine" checked value="@cus.CuisineID" /> @cus.Cuisine</div>
+                                                }
+                                            }
+
+                                            if (flagcus == 0)
+                                            {
+                                                <div class="col-md-3"><input type="checkbox" name="cuisine" value="@cus.CuisineID" /> @cus.Cuisine</div>
+                                            }
+                                            flagcus = 0;
+                                        }
+
+                                    </div><br style="clear:both" />
+                                    <div class="modal-footer">
+                                        <button data-dismiss="modal" class="btn btn-default" type="button">Close</button>
+                                        <button class="btn btn-warning" type="submit"> Confirm</button>
+                                        <input type="hidden" name="ShopID" value="@ViewBag.ShopID" />
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="modal fade modal-dialog-center" id="timingsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content-wrap">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                    <h4 class="modal-title">Add / Update Timings</h4>
+                                </div>
+
+                                @using (Html.BeginForm("AddTimings", "Shop"))
+                                {
+
+                                    <div class="modal-body">
+                                        <div class="col-md-4"><b>Day</b><input class="form-control" type="text" name="day1" value="Sun" /></div><div class="col-md-4"><b>Start Time</b><input class="form-control" type="time" name="starttime1" value="10:00" /></div><div class="col-md-4"><b>End Time</b><input type="time" class="form-control" name="endtime1" value="23:00" /></div>
+                                        <br style="clear:both" /><br><div class="col-md-4"><input class="form-control" type="text" name="day2" value="Mon" /></div><div class="col-md-4"><input class="form-control" type="time" name="starttime2" value="10:00" /></div><div class="col-md-4"><input type="time" class="form-control" name="endtime2" value="23:00" /></div>
+                                        <br style="clear:both" /><br><div class="col-md-4"><input class="form-control" type="text" name="day3" value="Tue" /></div><div class="col-md-4"><input class="form-control" type="time" name="starttime3" value="10:00" /></div><div class="col-md-4"><input type="time" class="form-control" name="endtime3" value="23:00" /></div>
+                                        <br style="clear:both" /><br><div class="col-md-4"><input class="form-control" type="text" name="day4" value="Wed" /></div><div class="col-md-4"><input class="form-control" type="time" name="starttime4" value="10:00" /></div><div class="col-md-4"><input type="time" class="form-control" name="endtime4" value="23:00" /></div>
+                                        <br style="clear:both" /><br><div class="col-md-4"><input class="form-control" type="text" name="day5" value="Thu" /></div><div class="col-md-4"><input class="form-control" type="time" name="starttime5" value="10:00" /></div><div class="col-md-4"><input type="time" class="form-control" name="endtime5" value="23:00" /></div>
+                                        <br style="clear:both" /><br><div class="col-md-4"><input class="form-control" type="text" name="day6" value="Fri" /></div><div class="col-md-4"><input class="form-control" type="time" name="starttime6" value="10:00" /></div><div class="col-md-4"><input type="time" class="form-control" name="endtime6" value="23:00" /></div>
+                                        <br style="clear:both" /><br><div class="col-md-4"><input class="form-control" type="text" name="day7" value="Sat" /></div><div class="col-md-4"><input class="form-control" type="time" name="starttime7" value="10:00" /></div><div class="col-md-4"><input type="time" class="form-control" name="endtime7" value="23:00" /></div>
+
+
+                                    </div><br style="clear:both" />
+                                    <div class="modal-footer">
+                                        <button data-dismiss="modal" class="btn btn-default" type="button">Close</button>
+                                        <button class="btn btn-warning" type="submit"> Submit</button>
+                                        <input type="hidden" name="ShopID" value="@ViewBag.ShopID" />
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

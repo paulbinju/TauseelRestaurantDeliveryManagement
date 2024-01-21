@@ -1,0 +1,491 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Restaurant</title>
+    <link href="@Url.Content("~/Content/bootstrap.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/chosen.css")" rel="stylesheet" />
+
+    <link href="@Url.Content("~/Content/Custom.css")" rel="stylesheet" />
+
+    <link href="@Url.Content("~/fonts/font-awesome.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/jquery.bxslider.css")" rel="stylesheet" />
+
+    <link href="@Url.Content("~/Content/footer-distributed-with-address-and-phones.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/styles.css")" rel="stylesheet" />
+    <style>
+        .table > tbody > tr > .no-line {
+            border-top: none;
+        }
+
+        .table > thead > tr > .no-line {
+            border-bottom: none;
+        }
+
+        .table > tbody > tr > .thick-line {
+            border-top: 2px solid;
+        }
+
+
+
+        /* enable absolute positioning */
+        .inner-addon {
+            position: relative;
+        }
+
+            /* style icon */
+            .inner-addon .fa {
+                position: absolute;
+                padding: 10px;
+                pointer-events: none;
+            }
+
+        /* align icon */
+        .left-addon .fa {
+            left: 0px;
+        }
+
+        .right-addon .fa {
+            right: 0px;
+        }
+
+        /* add padding  */
+        .left-addon input {
+            padding-left: 30px;
+        }
+
+        .right-addon input {
+            padding-right: 30px;
+        }
+
+
+        #paymentIcon i {
+            display: block;
+            text-align: center;
+        }
+
+        input[type=radio] {
+            width: 1.2em;
+            height: 1.2em;
+        }
+    </style>
+
+</head>
+<body>
+
+    <nav class="navbar navbar-new navbar-fixed-top" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Order Food Online</a>
+
+
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="@Url.Content("~/")">Home</a></li>
+                    <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                    <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="gap-big"></div>
+    <div class="gap-big"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <ul class="breadcrumb">
+                    <li><a href="@Url.Content("~/")" class="btn btn-default">Home</a></li>
+                    <li class="btn btn-default">Select Restaurant</li>
+                    <li><a href="#" class="btn btn-default">Select Food</a></li>
+                    <li class="active btn btn-danger" style="background-color: rgba(226, 77, 77, 0.96);border-color: #ac2925;">Checkout</li>
+
+                </ul>
+            </div>
+        </div>
+       
+
+        <div class="gap"></div>
+
+    </div>
+
+
+
+    <div class="container">
+
+        <div class="row">
+            <div class="col-md-9">
+
+
+
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><strong>Order summary</strong></h3>
+                    </div>
+                    <div class="panel-body">
+
+                        <div class="row">
+
+                            <div class="col-md-2">
+                             @foreach (var shop in ViewBag.Shop)
+                             {
+                                <a href="#" class="thumbnail">
+
+                                    <img src="@Url.Content("~/shoplogos/" + shop.ShopID + "-" + shop.HeaderPic)" alt="Image Alternative text" onerror="this.style.display='none';" title="@shop.ShopName">
+                                </a>
+                             }
+                                </div>
+
+                            <div class="col-md-4">
+                                <h3>@ViewBag.Shop[0].ShopName</h3>
+                               
+                            </div>
+
+                            <!--<div class="col-md-3">
+
+                            </div>-->
+
+                        </div>
+
+                        <div class="table-responsive">
+
+
+                            @if (ViewBag.MenuCart != null)
+                            {
+                                double amt;
+                                double total = 0.0;
+
+                                <table class="table table-condensed">
+                                    <thead>
+                                        <tr>
+                                            <td><strong>Item</strong></td>
+                                            <td class="text-center"><strong>Rate</strong></td>
+                                            <td class="text-center"><strong>Quantity</strong></td>
+                                            <td class="text-center"><strong>Amount</strong></td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        @foreach (var cart in ViewBag.MenuCart)
+                                        {
+                                            amt = cart.Rate * cart.Qty;
+                                            total += amt;
+                                            <tr><td class="text-left">@cart.Menu
+                                                <span style="font-size:11px;">@cart.Description</span>
+                                                </td><td class="text-center">@cart.Rate</td><td class="text-center">@cart.Qty</td><td class="text-center">@amt</td></tr>
+
+
+
+                                        }
+                                        @{
+
+                                            double discount = Convert.ToDouble(ViewBag.Discount);
+                                            double disamt;
+                                            if (discount != 0)
+                                            {
+                                                disamt = total * discount / 100;
+                                                total = total - (total * discount / 100);
+                                                        <tr><td style="height:40px;font-weight:bold;font-size:12px;padding:10px 0" class="text-right" colspan="3">  Discount (@discount %)</td><td class="text-center" style="height:40px;font-weight:bold;font-size:15px;padding:10px 0">BD @disamt</td></tr>
+
+                                            }
+
+
+                                         }
+                                        <tr><td style="height:40px;font-weight:bold;font-size:15px;padding:10px 0" class="text-right" colspan="3">  Total</td><td class="text-center" style="height:40px;font-weight:bold;font-size:15px;padding:10px 0">BD @total</td></tr>
+
+                                </table>
+
+
+
+                                            }
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+@using (Html.BeginForm("PlaceOrder", "Website"))
+{
+
+
+    <div class="container">
+
+
+        <div class="row">
+
+            <div class="col-md-9">
+
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><strong>Delivery Details</strong></h3>
+                    </div>
+                    <div class="panel-body">
+
+
+
+                
+                        <input type="hidden" name="ShopID" value="@ViewBag.Shop[0].ShopID" />
+
+
+                            <div class="form-inline">
+
+                                <div class="form-group col-md-4">
+                                    <label class="control-label">Name</label>
+
+                                    <div class="inner-addon left-addon">
+                                        <i class="fa fa-user"></i>
+
+                                        <input type="text" name="name" class="form-control" required />
+                                    </div>
+
+                                </div>
+
+
+                                <div class="form-group col-md-4">
+                                    <label class="control-label">Email</label>
+
+                                    <div class="inner-addon left-addon">
+                                        <i class="fa fa-envelope"></i>
+
+                                        <input type="email" name="email" class="form-control" required  />
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+
+
+
+                            <div class="form-inline">
+
+                                <div class="form-group col-md-4">
+                                    <label class="control-label">Mobile No</label>
+
+                                    <div class="inner-addon left-addon">
+                                        <i class="fa fa-mobile-phone"></i>
+
+                                        <input type="tel" name="mobile" class="form-control" required  />
+                                    </div>
+
+                                </div>
+
+
+                                <div class="form-group col-md-4">
+                                    <label class="control-label">Flat No / Villa No / Office No</label>
+
+                                    <div class="inner-addon left-addon">
+                                        <i class="fa fa-home"></i>
+
+                                        <input type="text" name="flat" class="form-control" required  />
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+
+
+
+
+                            <div class="form-inline">
+
+                                <div class="form-group col-md-4">
+                                    <label class="control-label">Building No</label>
+
+                                    <div class="inner-addon left-addon">
+                                        <i class="fa fa-building"></i>
+
+                                        <input type="text" name="building" class="form-control"  required />
+                                    </div>
+
+                                </div>
+
+
+                                <div class="form-group col-md-4">
+                                    <label class="control-label">Road</label>
+
+                                    <div class="inner-addon left-addon">
+                                        <i class="fa fa-road"></i>
+
+                                        <input type="text" name="road" class="form-control" required  />
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+
+
+
+
+                            <div class="form-inline">
+
+                                <div class="form-group col-md-4">
+                                    <label class="control-label">Block</label>
+
+                                    <div class="inner-addon left-addon">
+                                        <i class="fa fa-bars"></i>
+
+                                        <input type="text" name="block" class="form-control" />
+                                    </div>
+
+                                </div>
+
+
+                                <div class="form-group col-md-4">
+                                    <label class="control-label">Area Name</label>
+
+                                    <div class="inner-addon left-addon">
+                                        <i class="fa fa-long-arrow-up"></i>
+                                        <input type="text" name="area" class="form-control"  required  />
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label class="control-label">Land Mark</label>
+                                    <div class="inner-addon left-addon">
+                                        <i class="fa fa-map-marker"></i>
+                                        <input type="text" name="landmark" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-7">
+                                <label class="control-label">Special Request</label>
+                                <textarea id="textarea" name="specialrequest" rows="3" class="form-control" placeholder="Want a little sugar or salt ? or Delivery Time ? Let us know"></textarea>
+                            </div>
+                        
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+    </div>
+
+
+
+    <div class="container">
+
+
+        <div class="row">
+
+            <div class="col-md-9">
+
+
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><strong>Payment Method</strong></h3>
+                    </div>
+                    <div class="panel-body">
+ 
+
+                        <label class="btn btn-default">
+                            <span id="paymentIcon" style="font-size: 15px; font-weight: bold;">
+                                <i class="fa fa-money" style="font-size: 35px;color: #51A351; vertical-align: middle;"></i>I will pay Cash On Delivery
+                            </span>
+
+                        </label>
+ 
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+
+    <div class="container">
+
+
+        <div class="row">
+
+
+            <div class="col-md-2 col-md-offset-3">
+
+
+                <input value="Place Order" id="placeOrder" class="btn btn-success btn btn-lg" type="submit">
+
+            </div>
+
+        </div>
+
+    </div>
+
+}
+    <div class="gap"></div>
+    <div class="gap"></div>
+    <div class="gap"></div>
+
+    <footer class="footer-distributed">
+        <div class="footer-left">
+            <h3>Online<span> food</span></h3>
+            <p class="footer-links">
+                <a href="#">Home</a>
+                ·
+                <a href="#">All Restaurants</a>
+                <!--·
+                <a href="#">Pricing</a>
+                ·
+                <a href="#">About</a>
+                ·
+                <a href="#">Faq</a>
+                ·
+                <a href="#">Contact</a>-->
+            </p>
+            <p class="footer-company-name">Tauseel &copy; 2016</p>
+        </div>
+        <div class="footer-center">
+            <div>
+                <i class="fa fa-map-marker"></i>
+                <p><span>Bahrain</span> Seef</p>
+            </div>
+            <div>
+                <i class="fa fa-phone"></i>
+                <p>17111265</p>
+            </div>
+            <div>
+                <i class="fa fa-envelope"></i>
+                <p><a href="mailto:media@Tauseel.com">media@Tauseel.com</a></p>
+            </div>
+        </div>
+        <div class="footer-right">
+            <p class="footer-company-about">
+                <span>About Tauseel</span>
+                Tauseel is all about spend less save more.
+            </p>
+            <div class="footer-icons">
+                <a href="#"><i class="fa fa-facebook"></i></a>
+                <a href="#"><i class="fa fa-twitter"></i></a>
+                <a href="#"><i class="fa fa-instagram"></i></a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>
